@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>N0P3</title>
+  
+  <subtitle>正在搭建中</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2020-02-06T07:18:03.126Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>N0P3</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>zdy</title>
+    <link href="http://yoursite.com/2020/02/06/zdy/"/>
+    <id>http://yoursite.com/2020/02/06/zdy/</id>
+    <published>2020-02-06T07:15:39.000Z</published>
+    <updated>2020-02-06T07:18:03.126Z</updated>
+    
+    <content type="html"><![CDATA[<html><head></head><body><p>flag{deploy_success}</p></body></html>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;flag{deploy_success}&lt;/p&gt;
+&lt;/body&gt;&lt;/html&gt;
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
