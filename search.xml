@@ -57,6 +57,7 @@
 <p><strong>创造记录函数CREATERECORD</strong><br>创造纪录函数的参数最多为六个，<br>分为三组，每组由颜色和字符串两个参数组成。<br>按顺序称为记录的第一部分，第二部分和第三部分。<br>上面截图的第一条记录只用到了一个部分。<br>第二条用到了三部分。<br>第一部分通常起提示的作用，所以后两个部分如果过长会自动换行并与第一部分对齐。<br><em>现在中文换行可能会出现乱码，后续的更新会解决这个问题。</em><br><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/%E6%88%AA%E5%B1%8F2020-02-10%E4%B8%8B%E5%8D%888.20.09.png" data-fancybox="group" data-caption="换行演示" class="fancybox"><img alt="换行演示" title="换行演示" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/%E6%88%AA%E5%B1%8F2020-02-10%E4%B8%8B%E5%8D%888.20.09.png" class="lazyload"></a><br>在实例化一个滚动信息栏对象后，<br>在程序的任何位置调用此函数就能立即在信息栏输出信息。信息过长会自动换行，超过显示的上限会滚动显示。</p>
 <p><strong>滚动函数ROLL</strong><br>两个颜色参数分别指定信息栏外框的颜色和光标指针的颜色。<br>按ws来控制光标上下移动，光标到顶端或底部后继续向上或向下信息栏会开始滚动。<br>按下[ENTER]会返回光标所在的行数。行数从0开始向下递增。<br>按[ESC]返回-1；<br><strong>播放函数DISPLAY</strong><br>提供开始和结束的行数，信息栏就会显示这一段信息。<em>播放不存在的信息会访问到非法内存</em><br><strong>获得记录函数GETRECORD</strong><br>提供行数返回一个RECORD对象。<br><em>直接对信息栏中的信息进行操作可能会导致访问非法内存等问题</em></p>
 <h2 id="END"><a href="#END" class="headerlink" title="END"></a>END</h2><p>XzyGraphics库只是我在大一时方便自己写程序的工具，分享出来帮助和我一样正在学习的人创造更好看的命令行界面。<em>(它用起来真的很简单!)</em>它的不足和缺点还有很多，我也会坚持继续更新。如果你有建议或问题，发送邮件至<a href="mailto:n0p3@nyist.edu.cn">n0p3@nyist.edu.cn</a>。<br>感谢你花时间来阅读我的第一篇博客。：）</p>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/source/XzyGraphics%5B2.2%5D.zip" target="_blank" rel="noopener">XzyGraphics库</a></p>
 </body></html>]]></content>
       <tags>
         <tag>C++，Windows，图形</tag>
