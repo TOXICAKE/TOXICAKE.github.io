@@ -9,16 +9,24 @@
 <p>然后下载插件<a href="https://greasyfork.org/zh-CN/scripts/392023-u%E6%A0%A1%E5%9B%AD%E8%8B%B1%E8%AF%AD%E7%BD%91%E8%AF%BE%E7%AD%94%E6%A1%88%E6%98%BE%E7%A4%BA" target="_blank" rel="noopener">U校园答案显示</a>、<a href="https://greasyfork.org/zh-CN/scripts/369625-超星网课助手" target="_blank" rel="noopener">MOOC、超星助手</a></p>
 <h1 id="优学院"><a href="#优学院" class="headerlink" title="优学院"></a>优学院</h1><p>优学院可以使用<a href="https://n0p3.oss-cn-beijing.aliyuncs.com/source/n0p3.zip" target="_blank" rel="noopener">优学院辅助插件</a></p>
 <p>(已经被我改的看不出来是刷课插件了)</p>
+<h2 id="使用方法："><a href="#使用方法：" class="headerlink" title="使用方法："></a>使用方法：</h2><p>这是一个谷歌浏览器插件，下载后解压得到文件夹。在谷歌浏览器插件管理中点【加载已解压的插件】选解压后的文件夹即可。</p>
 <p>获取神秘字符串即显示答案</p>
 <p>填写神秘字符串即填写填空题答案</p>
 <p>5x可将视频五倍速播放（这已经是不会造成卡死的最快速度了）</p>
-<p>但不能自动换页<em>（等我仔细分析一下源码或许能加上）</em></p>
+<p>Ps：不能自动换页<em>（等我仔细分析一下源码或许能加上）</em></p>
 <h1 id="访问校园网（查成绩）"><a href="#访问校园网（查成绩）" class="headerlink" title="访问校园网（查成绩）"></a>访问校园网（查成绩）</h1><p>首先下载SSLVPN</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/source/SSLVPN.exe" target="_blank" rel="noopener">SSLVPN</a></p>
 <p>安装后第一行填<a href="https://122.207.223.254/" target="_blank" rel="noopener">https://122.207.223.254/</a> （<em>参见<a href="https://net.nyist.edu.cn/info/1047/1126.htm" target="_blank" rel="noopener">学校发布的文档</a></em>）</p>
 <p>用户名填学号</p>
 <p>密码是身份证后6位</p>
 <p>登录成功后就可以正常访问<a href="http://222.139.215.217/jwweb/" target="_blank" rel="noopener">教务管理系统</a></p>
+<h1 id="超星查看被锁课程"><a href="#超星查看被锁课程" class="headerlink" title="超星查看被锁课程"></a>超星查看被锁课程</h1><p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/SAVE%20MY%20TIME/%E6%88%AA%E5%B1%8F2020-02-20%E4%B8%8B%E5%8D%882.43.21.jpg" data-fancybox="group" data-caption="进入" class="fancybox"><img alt="进入" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/SAVE%20MY%20TIME/%E6%88%AA%E5%B1%8F2020-02-20%E4%B8%8B%E5%8D%882.43.21.jpg" class="lazyload" title="进入"></a></p>
+<p>看到第一课时被锁</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/SAVE%20MY%20TIME/%E6%88%AA%E5%B1%8F2020-02-20%E4%B8%8B%E5%8D%882.55.18.jpg" data-fancybox="group" data-caption="点标题" class="fancybox"><img alt="点标题" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/SAVE%20MY%20TIME/%E6%88%AA%E5%B1%8F2020-02-20%E4%B8%8B%E5%8D%882.55.18.jpg" class="lazyload" title="点标题"></a></p>
+<p>进入这里预览课程</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/SAVE%20MY%20TIME/%E6%88%AA%E5%B1%8F2020-02-20%E4%B8%8B%E5%8D%882.58.21.jpg" data-fancybox="group" data-caption="预览" class="fancybox"><img alt="预览" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/SAVE%20MY%20TIME/%E6%88%AA%E5%B1%8F2020-02-20%E4%B8%8B%E5%8D%882.58.21.jpg" class="lazyload" title="预览"></a></p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/SAVE%20MY%20TIME/%E6%88%AA%E5%B1%8F2020-02-20%E4%B8%8B%E5%8D%882.59.46.png" data-fancybox="group" data-caption="ok" class="fancybox"><img alt="ok" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/SAVE%20MY%20TIME/%E6%88%AA%E5%B1%8F2020-02-20%E4%B8%8B%E5%8D%882.59.46.png" class="lazyload" title="ok"></a></p>
+<p>OK 能看了。</p>
 </body></html>]]></content>
       <tags>
         <tag>study cheat easy</tag>
