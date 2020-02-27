@@ -39,6 +39,18 @@
 <p>本题手注wp可以参考 <a href="https://www.yuque.com/r1car/tnf7vi/rp443a" target="_blank" rel="noopener">1ight师傅的wp</a></p>
 <h1 id="文件上传"><a href="#文件上传" class="headerlink" title="文件上传"></a>文件上传</h1><p>先随意上传一个文件，抓包</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20203307.png" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20203307.png" class="lazyload"></a></p>
+<p>把文件后缀改php，文件内容改成一段脚本，上传后访问上传到的位置。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20204040.png" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20204040.png" class="lazyload"></a></p>
+<p>发现可以执行任意代码。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20204238.png" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20204238.png" class="lazyload"></a></p>
+<p>看到当前位置后，向后访问</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20203841.png" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20203841.png" class="lazyload"></a></p>
+<p>最后在这个目录下找到了flag</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20204317.png" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20204317.png" class="lazyload"></a></p>
+<p>直接用cat命令读不到flag，好像flag文件本来就是空的。</p>
+<p>运行readflag程序</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20204354.png" data-fancybox="group" data-caption class="fancybox"><img alt title data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/i%E6%98%A5%E7%A7%8B%20%E6%96%B0%E6%98%A5%E6%88%98%E7%96%AB%E5%85%AC%E5%BC%80%E8%B5%9B/%E6%89%B9%E6%B3%A8%202020-02-21%20204354.png" class="lazyload"></a></p>
+<p>Get flag.</p>
 ]]></content>
       <tags>
         <tag>CTF</tag>
