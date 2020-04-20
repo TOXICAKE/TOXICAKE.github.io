@@ -1,7 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>XCTF_Pwn</title>
+    <title>hfctf-2020</title>
+    <url>/2020/04/20/hfctf-2020/</url>
+    <content><![CDATA[<p>参加了2020的虎符ctf，因为最近在学pwn，其他题目也就没有看，最后只解出一道pwn题。真的是太菜了，等着学习大师傅们的wp吧。</p>
+<h1 id="count"><a href="#count" class="headerlink" title="count"></a>count</h1><p><em>只有这道题是在出wp之前做出的。</em></p>
+<p>连接题目返回一个算式，要求通过200关。看起来不像pwn题，猜测可能是输入的地方存在漏洞。</p>
+<p>拖进ida，发现好像汇编有点奇怪，不是平时常见架构的程序。</p>
+<p>发现sub_400990是main函数</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/hfctf/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8A%E5%8D%8811.44.08.png" data-fancybox="group" data-caption="main" class="fancybox"><img alt="main" title="main" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/hfctf/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8A%E5%8D%8811.44.08.png" class="lazyload"></a></p>
+<p>阅读代码，随机生成4个在0～99的整数，要求用户输入line 38的计算结果，连续输入正确200次后就会调用一个read函数，共度入100个字节，然而v8只有78个字节，所以这里存在栈溢出漏洞。紧接着下面有一个if，判断v9是否等于304305682，如果等于讲调用函数sub_400920,看一下这个函数</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/hfctf/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8A%E5%8D%8811.43.33.png" data-fancybox="group" data-caption="400920" class="fancybox"><img alt="400920" title="400920" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/hfctf/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8A%E5%8D%8811.43.33.png" class="lazyload"></a></p>
+<p>直接就get shell。</p>
+<p>所以我们的攻击思路就是，先完成200关的计算任务，最后利用栈溢出覆盖v9的值，使if成立即可。</p>
+<p>exp如下</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/hfctf/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8A%E5%8D%8811.41.55.png" data-fancybox="group" data-caption="exp" class="fancybox"><img alt="exp" title="exp" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/hfctf/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8A%E5%8D%8811.41.55.png" class="lazyload"></a></p>
+<p>因为不会正则，只能手动分离4个数字了orz</p>
+<p>执行</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/hfctf/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8A%E5%8D%8811.32.41.png" data-fancybox="group" data-caption="flag" class="fancybox"><img alt="flag" title="flag" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/hfctf/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8A%E5%8D%8811.32.41.png" class="lazyload"></a></p>
+<p>[以下为赛后Pwn题复现]</p>
+]]></content>
+      <tags>
+        <tag>CTF 参加的比赛</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XCTF-Pwn-Advance</title>
+    <url>/2020/04/18/XCTF-Pwn-Advance/</url>
+    <content><![CDATA[<h1 id="fogot"><a href="#fogot" class="headerlink" title="fogot"></a>fogot</h1><p>nc连接题目</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/fogot/%E6%88%AA%E5%B1%8F2020-04-18%20%E4%B8%8B%E5%8D%8810.04.30.png" data-fancybox="group" data-caption="nc" class="fancybox"><img alt="nc" title="nc" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/fogot/%E6%88%AA%E5%B1%8F2020-04-18%20%E4%B8%8B%E5%8D%8810.04.30.png" class="lazyload"></a></p>
+<p>阅读文本，这个程序大概是一个检查邮箱格式是否合法的程序。</p>
+<p>拖进ida分析</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/fogot/%E6%88%AA%E5%B1%8F2020-04-18%20%E4%B8%8B%E5%8D%887.54.22.png" data-fancybox="group" data-caption="main" class="fancybox"><img alt="main" title="main" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/fogot/%E6%88%AA%E5%B1%8F2020-04-18%20%E4%B8%8B%E5%8D%887.54.22.png" class="lazyload"></a></p>
+<p>分两部分来看main函数，前半部分有数个函数指针，指向的是很多个只输出一条文本的函数。，接着用户的两次输入，可以看到有两处溢出，溢出点分别在33行和41行。继续看下半部分。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/fogot/%E6%88%AA%E5%B1%8F2020-04-18%20%E4%B8%8B%E5%8D%887.55.24.png" data-fancybox="group" data-caption="main2" class="fancybox"><img alt="main2" title="main2" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/fogot/%E6%88%AA%E5%B1%8F2020-04-18%20%E4%B8%8B%E5%8D%887.55.24.png" class="lazyload"></a></p>
+<p>有一段代码，解读一下就是在对我们第二次输入的邮箱地址进行逐个字符的分析，当找到‘@’时，就继续寻找‘.’，中间如果有没能找到的关键字符就执行不同的提示函数，前一段的数个函数指针指向的就是不同的提示函数。每完成一个要求v14就加1，最后调用不同的函数。</p>
+<p>看一下栈</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/fogot/%E6%88%AA%E5%B1%8F2020-04-18%20%E4%B8%8B%E5%8D%887.58.28.png" data-fancybox="group" data-caption="栈" class="fancybox"><img alt="栈" title="栈" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/fogot/%E6%88%AA%E5%B1%8F2020-04-18%20%E4%B8%8B%E5%8D%887.58.28.png" class="lazyload"></a></p>
+<p>我们输入的邮箱地址程序里又正好给了可以getflag的函数，所以我们的攻击思路就是，利用溢出漏洞覆盖某个函数指针指向的函数为目标函数，然后满足代码条件使它执行。</p>
+<p>我选了v12函数指针，exp如下</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/fogot/%E6%88%AA%E5%B1%8F2020-04-18%20%E4%B8%8B%E5%8D%888.08.53.png" data-fancybox="group" data-caption="exp" class="fancybox"><img alt="exp" title="exp" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/fogot/%E6%88%AA%E5%B1%8F2020-04-18%20%E4%B8%8B%E5%8D%888.08.53.png" class="lazyload"></a></p>
+<p>‘a@a.comm’最后会调用v12，后面的部分覆盖v12指向的函数。</p>
+<h1 id="Mary-Morton"><a href="#Mary-Morton" class="headerlink" title="Mary_Morton"></a>Mary_Morton</h1><p>连接题目看一下</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/Mary_Morton/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8B%E5%8D%884.30.18.png" data-fancybox="group" data-caption="nc" class="fancybox"><img alt="nc" title="nc" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/Mary_Morton/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8B%E5%8D%884.30.18.png" class="lazyload"></a></p>
+<p>可以选择攻击方式，栈溢出或者格式化字符串，但是这道题真的是想考察这两个知识而已吗？</p>
+<p>拖进ida分析</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/Mary_Morton/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8B%E5%8D%884.26.08.png" data-fancybox="group" data-caption="main" class="fancybox"><img alt="main" title="main" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/Mary_Morton/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8B%E5%8D%884.26.08.png" class="lazyload"></a></p>
+<p>可以看出程序有canary保护</p>
+<p>main函数就是让用户选择，然后调用不同的函数的，主要看sub_4008EB和sub_400960</p>
+<p>sub_4008EB</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/Mary_Morton/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8B%E5%8D%884.31.00.png" data-fancybox="group" data-caption="4008eb" class="fancybox"><img alt="4008eb" title="4008eb" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/Mary_Morton/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8B%E5%8D%884.31.00.png" class="lazyload"></a></p>
+<p>如题目所说，确实存在一个格式化字符串漏洞，再去看sub_400960</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/Mary_Morton/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8B%E5%8D%884.31.12.png" data-fancybox="group" data-caption="400960" class="fancybox"><img alt="400960" title="400960" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/Mary_Morton/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8B%E5%8D%884.31.12.png" class="lazyload"></a></p>
+<p>同样也真的存在一个栈溢出漏洞，那我们的攻击思路就有了：</p>
+<p>先利用格式化字符串漏洞得到canary的值，再利用栈溢出漏洞构造rop链调用flag函数。canary的位置，首先计算步长，也就是printf取参数指针到buf的距离，测试得出是6，再加上buf到v2的距离0x90-0x8=0x88(十进制17)，所以17+6=23</p>
+<p>exp如下</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/Mary_Morton/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8B%E5%8D%884.30.04.png" data-fancybox="group" data-caption="exp" class="fancybox"><img alt="exp" title="exp" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/Mary_Morton/%E6%88%AA%E5%B1%8F2020-04-20%20%E4%B8%8B%E5%8D%884.30.04.png" class="lazyload"></a></p>
+<p>花了我最长时间的地方居然是处理接收到的canary值，很多写法都莫名报错，最后这样写是可以的。</p>
+]]></content>
+      <tags>
+        <tag>CTF PWN</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>XCTF-Pwn新手区</title>
     <url>/2020/04/13/int-overflow/</url>
     <content><![CDATA[<h1 id="int-overflow"><a href="#int-overflow" class="headerlink" title="int_overflow"></a>int_overflow</h1><p>nc链接一下题目。</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/%E6%89%B9%E6%B3%A8%202020-04-13%20190617.png" data-fancybox="group" data-caption="连接" class="fancybox"><img alt="连接" title="连接" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/%E6%89%B9%E6%B3%A8%202020-04-13%20190617.png" class="lazyload"></a></p>
@@ -55,7 +117,7 @@
 <p>所以我们的攻击思路就是，利用格式化字符串漏洞把secret[0]值修改为85使if成立，然后输入shellcode就可以get shell了。</p>
 <p>exp</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/string/%E6%88%AA%E5%B1%8F2020-04-16%20%E4%B8%8B%E5%8D%8811.25.17.png" data-fancybox="group" data-caption="exp" class="fancybox"><img alt="exp" title="exp" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/string/%E6%88%AA%E5%B1%8F2020-04-16%20%E4%B8%8B%E5%8D%8811.25.17.png" class="lazyload"></a></p>
-<p>要覆盖的值的地址在payload发送前写入栈，然后利用漏洞修改这个地址的值。paylaod中的&#39;7&#39;是试验出的结果，前一次输入的地址被保存在了偏移为7的位置。</p>
+<p>要覆盖的值的地址在payload发送前写入栈，然后利用漏洞修改这个地址的值。paylaod中的&#39;7&#39;是试验出的结果，前一次输入的地址被保存在了步长为7的位置。</p>
 <p><em>本题要感谢<strong>不会修电脑</strong>师傅的指点</em></p>
 <h1 id="level3"><a href="#level3" class="headerlink" title="level3"></a>level3</h1><p>直接拖进IDA分析</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/level3/%E6%88%AA%E5%B1%8F2020-04-17%20%E4%B8%8A%E5%8D%8810.35.15.png" data-fancybox="group" data-caption="main" class="fancybox"><img alt="main" title="main" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/level3/%E6%88%AA%E5%B1%8F2020-04-17%20%E4%B8%8A%E5%8D%8810.35.15.png" class="lazyload"></a></p>
@@ -67,8 +129,8 @@
 <p>完整exp如下</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/level3/%E6%88%AA%E5%B1%8F2020-04-17%20%E4%B8%8B%E5%8D%881.40.23.png" data-fancybox="group" data-caption="exp" class="fancybox"><img alt="exp" title="exp" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/level3/%E6%88%AA%E5%B1%8F2020-04-17%20%E4%B8%8B%E5%8D%881.40.23.png" class="lazyload"></a></p>
 <p>需要注意的是，如果PIE保护开启，offset将是动态的，就不能通过计算一个函数的offset去推算其他函数。</p>
-<p>此外，两次payload必须在同一次程序运行过程中完成，不能分成第一次运行获得地址，第二次运行执行栈溢出攻击。因为程序的每一次运行外部函数在got表中的地址都是不同的，所以我们的第一个rop链中必须使程序返回到合适的位置，在上面的exp中，第一次write执行后返回到了main函数，以便可以执行第二个payload。</p>
-<p><em>[<strong>此处是个人理解部分</strong>]</em>  在rop链中，希望调用的外部函数地址，可以是plt表中的地址，也可以是got表中的地址，因为plt地址指向的数据就是这个函数在got表的地址。</p>
+<p>此外，两次payload必须在同一次程序运行过程中完成，不能分成第一次运行获得地址，第二次运行执行栈溢出攻击。因为程序的每一次运行，外部函数在got表中的实际地址都是不同的，所以我们的第一个rop链中必须使程序返回到合适的位置，在上面的exp中，第一次write执行后返回到了main函数，以便可以执行第二个payload。</p>
+<p><em>[<strong>此处是个人理解部分</strong>]</em>  在rop链中，希望调用的外部函数地址，可以是plt表中的地址，也可以是got表中的实际地址，因为plt地址指向的数据就是这个函数在got表的实际地址。</p>
 <p><em>本题要感谢<strong>Thriumph</strong>师傅的指点</em></p>
 <h1 id="CGfsb"><a href="#CGfsb" class="headerlink" title="CGfsb"></a>CGfsb</h1><p><em>这一题也是格式化字符串漏洞，但是比较简单，可以独立完成</em></p>
 <p>直接ida看题</p>
@@ -87,7 +149,7 @@
 <h1 id="小总结"><a href="#小总结" class="headerlink" title="小总结"></a>小总结</h1><p>学Pwn七天，学到的东西没有很多，但是原理和小细节都弄清楚了，这些漏洞的高级运用方法还要在以后认真学习。</p>
 ]]></content>
       <tags>
-        <tag>CTF</tag>
+        <tag>CTF PWN</tag>
       </tags>
   </entry>
   <entry>
