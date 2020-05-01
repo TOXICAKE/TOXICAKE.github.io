@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>ISCC2020</title>
+    <url>/2020/05/01/ISCC2020/</url>
+    <content><![CDATA[<h1 id="未知的风险-1"><a href="#未知的风险-1" class="headerlink" title="未知的风险-1"></a>未知的风险-1</h1><p>题目有描述</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%88%AA%E5%B1%8F2020-05-01%20%E4%B8%8B%E5%8D%885.34.20.png" data-fancybox="group" data-caption="描述" class="fancybox"><img alt="描述" title="描述" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%88%AA%E5%B1%8F2020-05-01%20%E4%B8%8B%E5%8D%885.34.20.png" class="lazyload"></a></p>
+<p>看题目，只有简单的一行</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%89%B9%E6%B3%A8%202020-05-01%20170423.png" data-fancybox="group" data-caption="题目" class="fancybox"><img alt="题目" title="题目" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%89%B9%E6%B3%A8%202020-05-01%20170423.png" class="lazyload"></a></p>
+<p>hello guest，题目描述说只允许user进入，也就是我们要伪造身份。</p>
+<p>抓包</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%88%AA%E5%B1%8F2020-05-01%20%E4%B8%8B%E5%8D%885.39.10.png" data-fancybox="group" data-caption="bp1" class="fancybox"><img alt="bp1" title="bp1" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%88%AA%E5%B1%8F2020-05-01%20%E4%B8%8B%E5%8D%885.39.10.png" class="lazyload"></a></p>
+<p>这token格式一看就是jwt<em>（T0ki师傅说的）</em></p>
+<p>要伪造身份，我们就要构造新的jwt，然而，虽然使用的是HS256，但是翻遍网站也找不到key。于是想到，可能服务器使用的是低版本的jwt，需要我们把加密格式改为none。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%89%B9%E6%B3%A8%202020-05-01%20164709.png" data-fancybox="group" data-caption="jwt_tool" class="fancybox"><img alt="jwt_tool" title="jwt_tool" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%89%B9%E6%B3%A8%202020-05-01%20164709.png" class="lazyload"></a></p>
+<p>用jwt_tool来修改jwt,并发包。</p>
+<p>成功来到一个登陆页面，对应题目描述中的一把锁。阅读页面的js代码可知，数据会以xml实体post到一个doLogin.php页面，返回的code决定了登陆是否成功。于是我尝试修改了返回包，使code为1。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/QQ%E5%9B%BE%E7%89%8720200501164622.jpg" data-fancybox="group" data-caption="login" class="fancybox"><img alt="login" title="login" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/QQ%E5%9B%BE%E7%89%8720200501164622.jpg" class="lazyload"></a></p>
+<p>虽然登陆成功但是什么也没有。</p>
+<p>再看题目描述，”他猜测密码格式flag{*}”,也就是说，用户密码才是flag。随即想到可能存在xxe漏洞，利用这个漏洞读取doLogin.php的源码，逆向分析验证代码获得flag。</p>
+<p>payload：</p>
+<p>​    <code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</code><br><code>&lt;!DOCTYPE N0P3 [&lt;!ENTITY xxe SYSTEM &quot;php://filter/read=convert.base64-encode/resource=flag.php&quot;</code><br><code>&gt; ]&gt;</code><br><code>&lt;user&gt;</code><br>  <code>&lt;username&gt;&amp;xxe;&lt;/username&gt;</code><br>  <code>&lt;password&gt;admin&lt;/password&gt;</code><br><code>&lt;/user&gt;</code></p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%89%B9%E6%B3%A8%202020-05-01%20163522.png" data-fancybox="group" data-caption="xxe" class="fancybox"><img alt="xxe" title="xxe" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%89%B9%E6%B3%A8%202020-05-01%20163522.png" class="lazyload"></a></p>
+<p>读取成功。分析一下源码</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%89%B9%E6%B3%A8%202020-05-01%20170635.png" data-fancybox="group" data-caption="code" class="fancybox"><img alt="code" title="code" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%89%B9%E6%B3%A8%202020-05-01%20170635.png" class="lazyload"></a></p>
+<p>发现include了一个flag.php，直接利用xxe去读</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/QQ%E5%9B%BE%E7%89%8720200501164551.png" data-fancybox="group" data-caption="flag1" class="fancybox"><img alt="flag1" title="flag1" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/QQ%E5%9B%BE%E7%89%8720200501164551.png" class="lazyload"></a></p>
+<p>读到了，解码</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%89%B9%E6%B3%A8%202020-05-01%20170256.png" data-fancybox="group" data-caption="flag" class="fancybox"><img alt="flag" title="flag" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/ISCC2020/%E6%89%B9%E6%B3%A8%202020-05-01%20170256.png" class="lazyload"></a></p>
+<p>连源码都不用审，直接就能get flag。</p>
+]]></content>
+      <tags>
+        <tag>CTF,参加的比赛</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>2020安恒月赛April</title>
     <url>/2020/04/27/2020%E5%AE%89%E6%81%92%E6%9C%88%E8%B5%9BApril/</url>
     <content><![CDATA[<p>这次依然是只看pwn,只看了一题，其他两题是堆，干脆就没看。</p>
