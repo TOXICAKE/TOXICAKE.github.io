@@ -166,6 +166,22 @@
 <p>shellcode可以通过一段可用的bss段储存</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-200/%E6%88%AA%E5%B1%8F2020-04-23%20%E4%B8%8B%E5%8D%889.34.53.png" data-fancybox="group" data-caption="bss" class="fancybox"><img alt="bss" title="bss" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-200/%E6%88%AA%E5%B1%8F2020-04-23%20%E4%B8%8B%E5%8D%889.34.53.png" class="lazyload"></a></p>
 <p>exp逻辑不复杂，但是要注意堆栈的恢复和一些细节。</p>
+<h1 id="Pwn-100"><a href="#Pwn-100" class="headerlink" title="Pwn-100"></a>Pwn-100</h1><p>这道题花了很长时间，主要花时间在想用DynELF做，到最后也没有写出来，还是用LibcSearcher解了。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-100/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%886.18.58.png" data-fancybox="group" data-caption="nc" class="fancybox"><img alt="nc" title="nc" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-100/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%886.18.58.png" class="lazyload"></a></p>
+<p>链接看一下，直接有输入，一直输一直输，要很长才会输出一个bye～，ida看一下</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-100/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%886.19.26.png" data-fancybox="group" data-caption="ida" class="fancybox"><img alt="ida" title="ida" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-100/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%886.19.26.png" class="lazyload"></a></p>
+<p>主函数没东西，跟踪到40068E看一下</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-100/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%886.19.39.png" data-fancybox="group" data-caption="68e" class="fancybox"><img alt="68e" title="68e" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-100/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%886.19.39.png" class="lazyload"></a></p>
+<p>声明了一个v1，调用40063D，注意传参传了一个200，继续看</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-100/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%886.19.49.png" data-fancybox="group" data-caption="63d" class="fancybox"><img alt="63d" title="63d" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-100/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%886.19.49.png" class="lazyload"></a></p>
+<p>一个执行200次的循环，循环体是一个只读入1个字节的read，显然这里存在溢出。</p>
+<p>exp：</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-100/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%886.33.55.png" data-fancybox="group" data-caption="exp" class="fancybox"><img alt="exp" title="exp" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn-100/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%886.33.55.png" class="lazyload"></a></p>
+<p>第16行为什么这样写，需要自己去调试出来。</p>
+<p><em>LibcSearcher和Ropgadget真好用。</em></p>
+<h1 id="反应釜开关控制"><a href="#反应釜开关控制" class="headerlink" title="反应釜开关控制"></a>反应釜开关控制</h1><p>有故事背景，还有多层的代码，感觉是个好玩的题，结果一看发现就是简单的栈溢出</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/%E5%8F%8D%E5%BA%94%E9%87%9C%E6%8E%A7%E5%88%B6%E5%BC%80%E5%85%B3/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%888.36.03.png" data-fancybox="group" data-caption="exp" class="fancybox"><img alt="exp" title="exp" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/%E5%8F%8D%E5%BA%94%E9%87%9C%E6%8E%A7%E5%88%B6%E5%BC%80%E5%85%B3/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%888.36.03.png" class="lazyload"></a></p>
+<p>非常简单，看了官方wp发现这原来是一道盲打。emmm，果然是道好题。</p>
 ]]></content>
       <tags>
         <tag>CTF,PWN</tag>
