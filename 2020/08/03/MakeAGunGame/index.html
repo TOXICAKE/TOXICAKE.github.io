@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>【来做命令行游戏吧-1】：一个图形选择菜单 | N0P3</title><meta name="description" content="这里是XzyGraphics和InfantGameEngine的开发实例，我们的目标是从一片漆黑到开发出一个2d命令行游戏。本文内容：安装XzyGraphics，制作一个图形选择菜单。"><meta name="keywords" content="命令行"><meta name="author" content="N0P3"><meta name="copyright" content="N0P3"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="【来做命令行游戏吧-1】：一个图形选择菜单"><meta name="twitter:description" content="这里是XzyGraphics和InfantGameEngine的开发实例，我们的目标是从一片漆黑到开发出一个2d命令行游戏。本文内容：安装XzyGraphics，制作一个图形选择菜单。"><meta name="twitter:image" content="https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg"><meta property="og:type" content="article"><meta property="og:title" content="【来做命令行游戏吧-1】：一个图形选择菜单"><meta property="og:url" content="https://cdn.n0p3.cn/2020/08/03/MakeAGunGame/"><meta property="og:site_name" content="N0P3"><meta property="og:description" content="这里是XzyGraphics和InfantGameEngine的开发实例，我们的目标是从一片漆黑到开发出一个2d命令行游戏。本文内容：安装XzyGraphics，制作一个图形选择菜单。"><meta property="og:image" content="https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'true'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://cdn.n0p3.cn/2020/08/03/MakeAGunGame/"><link rel="next" title="CTFLand" href="https://cdn.n0p3.cn/2020/07/29/CTFLand/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://n0p3.top","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: N0P3","link":"链接: https://cdn.n0p3.cn/2020/08/03/MakeAGunGame/","source":"来源: N0P3","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: {"text":"N0P3,CAKE,FLAG,T0KI,MOMO,RICK,浅草","fontSize":"15px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="N0P3" type="application/atom+xml">
+</head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">N0P3</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">17</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">16</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#安装-XzyGraphics"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">安装 XzyGraphics</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#制作一个主菜单"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">制作一个主菜单</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#设计选单"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">设计选单</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#使用选单"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">使用选单</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#特殊返回值"><span class="toc_mobile_items-number">2.3.</span> <span class="toc_mobile_items-text">特殊返回值</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#结尾"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">结尾</span></a></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装-XzyGraphics"><span class="toc-number">1.</span> <span class="toc-text">安装 XzyGraphics</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#制作一个主菜单"><span class="toc-number">2.</span> <span class="toc-text">制作一个主菜单</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#设计选单"><span class="toc-number">2.1.</span> <span class="toc-text">设计选单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用选单"><span class="toc-number">2.2.</span> <span class="toc-text">使用选单</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#特殊返回值"><span class="toc-number">2.3.</span> <span class="toc-text">特殊返回值</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结尾"><span class="toc-number">3.</span> <span class="toc-text">结尾</span></a></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">【来做命令行游戏吧-1】：一个图形选择菜单</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2020-08-03<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-08-03</time><div class="post-meta-wordcount"><div class="post-meta-pv-cv"><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span><span class="post-meta__separator">|</span><i class="fa fa-comments-o post-meta__icon fa-fw" aria-hidden="true"></i><span>评论数:</span><a href="/2020/08/03/MakeAGunGame/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/2020/08/03/MakeAGunGame/" itemprop="commentCount"></span></a></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="安装-XzyGraphics"><a href="#安装-XzyGraphics" class="headerlink" title="安装 XzyGraphics"></a>安装 XzyGraphics</h1><p>以vs2019为例，先把.h文件放进工程目录</p>
+<p>再根据vs的设置挑选对应的.lib文件</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803150644583.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803150644583" class="fancybox"><img alt="image-20200803150644583" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803150644583.png" class="lazyload" title="image-20200803150644583"></a></p>
+<p>我现在的配置设置如图，于是就把对应的lib放进工程文件夹。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803150748801.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803150748801" class="fancybox"><img alt="image-20200803150748801" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803150748801.png" class="lazyload" title="image-20200803150748801"></a></p>
+<p>在cpp文件中include进来。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803155044746.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803155044746" class="fancybox"><img alt="image-20200803155044746" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803155044746.png" class="lazyload" title="image-20200803155044746"></a></p>
+<p>没有报错的话就安装好了。</p>
+<h1 id="制作一个主菜单"><a href="#制作一个主菜单" class="headerlink" title="制作一个主菜单"></a>制作一个主菜单</h1><h2 id="设计选单"><a href="#设计选单" class="headerlink" title="设计选单"></a>设计选单</h2><p><strong>FORM</strong>是选单类，实例化的对象是一个默认选单。经过简单设置后就可以展开选单让用户进行选择。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803165119110.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803165119110" class="fancybox"><img alt="image-20200803165119110" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803165119110.png" class="lazyload" title="image-20200803165119110"></a></p>
+<p>程序员为了开发快速常常会写类似这样的一段代码。让用户输入数字，switch根据数字再去选择对应的功能。</p>
+<p>我们可以用FORM来美化这段代码。FORM的设计思想是“改变用户输入方式”。因此FORM仅仅只负责用户输入和返回用户选择的值，不关心程序对FORM返回的数据的处理。</p>
+<p>所以我们要把原来的输入方式cin替换掉。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803171003779.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803171003779" class="fancybox"><img alt="image-20200803171003779" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803171003779.png" class="lazyload" title="image-20200803171003779"></a></p>
+<p>FORM声明一个叫做MainMenu的对象。可见初始参数有六个，均为整型。Inx1，Iny1为显示选单的左上角坐标；同理，Inx2，Iny2为右下角坐标。InoptionX和InoptionY是指生成几乘几的选单。例如1，2就代表1列2行的选单。</p>
+<p>我们的《测试枪战》共有3个选项，我们先选择1x3的排列方式。</p>
+<p><code>FORM MainMenu(10, 4, 30, 15, 1, 3);//两点的坐标只是大概估计，具体数值要经过测试。</code></p>
+<p><em>(注坐标原点为左上角，(0,0）点不显示在屏幕，所以坐标中不存在0，左上角第一个字符坐标为(1,1) )</em></p>
+<p>我们声明好了一个选单，但是我们还看不到它。可以使用DRAW函数来把这个选单绘制出来。</p>
+<p><code>MainMenu.DRAW(H_Blue,H_Red,H_Green);</code>//绘制选单需要提供三个颜色参数，分别是边框颜色，选项边框颜色，选项文字颜色</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803172339566.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803172339566" class="fancybox"><img alt="image-20200803172339566" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803172339566.png" class="lazyload" title="image-20200803172339566"></a></p>
+<p>运行效果如图。此时的选单没有任何内容，但是我们已经看到生成效果不错。</p>
+<p>接下来使用SETOPTIONNAME函数给选项设定名字。</p>
+<p><code>MainMenu.SETOPTIONNAME(0,&quot;开始游戏&quot;);//把0号选项的名字设定为 “开始游戏”</code></p>
+<p>选项编号按从左到右，从上到下的顺序从0开始计数。所以三个选项的编号分别为0，1，2。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803203429405.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803203429405" class="fancybox"><img alt="image-20200803203429405" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803203429405.png" class="lazyload" title="image-20200803203429405"></a></p>
+<p>设定好三个选项。运行看看效果。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803203508361.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803203508361" class="fancybox"><img alt="image-20200803203508361" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803203508361.png" class="lazyload" title="image-20200803203508361"></a></p>
+<p>（这个红绿也太丑了）</p>
+<p>现在标题，边框，选项框我们都还没有自定义。</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand code-closed" aria-hidden="true"></i><div class="code_lang">c++</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MainMenu.FormStr = <span class="string">"*"</span>;<span class="comment">//边框字符改为‘*’</span></span><br><span class="line">MainMenu.OptionStr = <span class="string">"."</span>;<span class="comment">//选项边框字符改为‘.’</span></span><br><span class="line">MainMenu.title = <span class="string">"测试枪战"</span>;<span class="comment">//标题改为”测试枪战“</span></span><br><span class="line">MainMenu.TitleColor = H_Yellow;<span class="comment">//标题颜色改为亮黄色</span></span><br></pre></td></tr></table></figure></div>
+
+<p>运行看一下</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803204402831.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803204402831" class="fancybox"><img alt="image-20200803204402831" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803204402831.png" class="lazyload" title="image-20200803204402831"></a></p>
+<p>想让字居中？通过在选项名前加空格就可以解决。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803204633021.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803204633021" class="fancybox"><img alt="image-20200803204633021" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803204633021.png" class="lazyload" title="image-20200803204633021"></a></p>
+<p>不想要边框？或者想自己绘制更复杂的边框？</p>
+<p>把border参数改为false即可。</p>
+<p><code>MainMenu.border = false;</code></p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205206469.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803205206469" class="fancybox"><img alt="image-20200803205206469" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205206469.png" class="lazyload" title="image-20200803205206469"></a></p>
+<p>简洁。</p>
+<h2 id="使用选单"><a href="#使用选单" class="headerlink" title="使用选单"></a>使用选单</h2><p>我们现在使用的是DRAW函数绘制出选单，但我们是想让用户进行选择。所以我们要使用SELECTION函数来绘制选单并让用户选择。</p>
+<p><code>MainMenu.SELECTION(H_Blue, H_Red, H_Green);//和DRAW的所需参数一致，只不过会让用户选择。</code></p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205427181.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803205427181" class="fancybox"><img alt="image-20200803205427181" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205427181.png" class="lazyload" title="image-20200803205427181"></a></p>
+<p>用户通过按ws上下移动选项，回车键确定选项并返回选项的值。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205737058.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803205737058" class="fancybox"><img alt="image-20200803205737058" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205737058.png" class="lazyload" title="image-20200803205737058"></a></p>
+<p>经过SELECTION之后selection变量会得到用户选择选项的值，再根据值switch到对应位置。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205922246.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803205922246" class="fancybox"><img alt="image-20200803205922246" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205922246.png" class="lazyload" title="image-20200803205922246"></a></p>
+<p>当我们选择第2个选项的时候出现了1，这是因为选项的值默认与选项编号一致，因此第二个选项实际返回的是1。对应的把case标签修改一下或者给返回值加1再或者使用SETVALUE修改选项返回值也是可以的。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803211135827.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803211135827" class="fancybox"><img alt="image-20200803211135827" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803211135827.png" class="lazyload" title="image-20200803211135827"></a></p>
+<p>对应起来即可。</p>
+<p>所以使用FORM只不过是改变了selection的输入方式，从cin输入改为了选项选择。</p>
+<h2 id="特殊返回值"><a href="#特殊返回值" class="headerlink" title="特殊返回值"></a>特殊返回值</h2><p>为了满足更多需要，有两个特殊的按键【ESC】和【TAB】。分别对应返回值-1和返回值-2。推荐的实践是把-1作为退出按键，使用户离开选择菜单不做出选择。-2作为切换键，在多个选单，信息栏或输入框之间切换。（信息栏，输入框会在以后说到）</p>
+<p>开发者要记得为这两个特殊返回值做出回应。</p>
+<p>本例中的主菜单不允许关闭，于是可以套一个循环</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803214717592.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="image-20200803214717592" class="fancybox"><img alt="image-20200803214717592" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803214717592.png" class="lazyload" title="image-20200803214717592"></a></p>
+<p>像这样就可以实现必须选择，且按【TAB】键无用。</p>
+<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>使用FORM去生成一个选择菜单是非常简单的，并且它的用途很广并不只是可以用于做选择菜单。人物的背包，卡牌或道具的选择都可以使用它。甚至可以用它来做井字棋。需要的是想象。</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">N0P3</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://cdn.n0p3.cn/2020/08/03/MakeAGunGame/">https://cdn.n0p3.cn/2020/08/03/MakeAGunGame/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://cdn.n0p3.cn">N0P3</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/">命令行    </a></div><div class="post_share"><div class="social-share" data-image="https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png" alt="支付宝"><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/07/29/CTFLand/"><img class="next_cover lazyload" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>CTFLand</span></div></a></div></nav><div class="relatedPosts"><div class="relatedPosts_headline"><i class="fa fa-fw fa-thumbs-up" aria-hidden="true"></i><span> 相关推荐</span></div><div class="relatedPosts_list"><div class="relatedPosts_item"><a href="/2020/04/05/InfantGameEngine/" title="在命令行上玩出花:InfantGameEngine"><img class="relatedPosts_cover lazyload"data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/InfantGameEngine/hello-i-m-nik-qXakibuQiPU-unsplash.png"><div class="relatedPosts_main is-center"><div class="relatedPosts_date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 2020-04-05</div><div class="relatedPosts_title">在命令行上玩出花:InfantGameEngine</div></div></a></div></div><div class="clear_both"></div></div><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'IHkoGoEe8ua2JOoXuv8W7vCC-gzGzoHsz',
+  appKey:'EBcjWhsfRX0zoi7Up1pzopdR',
+  placeholder:'来都来了，说两句再走呗～',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" style="background-image: url(https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By N0P3</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"><span>豫ICP备20013173号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="ribbon_piao" mobile="false" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false; 
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/ClickShowText.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>

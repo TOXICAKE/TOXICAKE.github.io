@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>【来做命令行游戏吧-1】：一个图形选择菜单</title>
+    <url>/2020/08/03/MakeAGunGame/</url>
+    <content><![CDATA[<h1 id="安装-XzyGraphics"><a href="#安装-XzyGraphics" class="headerlink" title="安装 XzyGraphics"></a>安装 XzyGraphics</h1><p>以vs2019为例，先把.h文件放进工程目录</p>
+<p>再根据vs的设置挑选对应的.lib文件</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803150644583.png" data-fancybox="group" data-caption="image-20200803150644583" class="fancybox"><img alt="image-20200803150644583" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803150644583.png" class="lazyload" title="image-20200803150644583"></a></p>
+<p>我现在的配置设置如图，于是就把对应的lib放进工程文件夹。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803150748801.png" data-fancybox="group" data-caption="image-20200803150748801" class="fancybox"><img alt="image-20200803150748801" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803150748801.png" class="lazyload" title="image-20200803150748801"></a></p>
+<p>在cpp文件中include进来。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803155044746.png" data-fancybox="group" data-caption="image-20200803155044746" class="fancybox"><img alt="image-20200803155044746" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803155044746.png" class="lazyload" title="image-20200803155044746"></a></p>
+<p>没有报错的话就安装好了。</p>
+<h1 id="制作一个主菜单"><a href="#制作一个主菜单" class="headerlink" title="制作一个主菜单"></a>制作一个主菜单</h1><h2 id="设计选单"><a href="#设计选单" class="headerlink" title="设计选单"></a>设计选单</h2><p><strong>FORM</strong>是选单类，实例化的对象是一个默认选单。经过简单设置后就可以展开选单让用户进行选择。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803165119110.png" data-fancybox="group" data-caption="image-20200803165119110" class="fancybox"><img alt="image-20200803165119110" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803165119110.png" class="lazyload" title="image-20200803165119110"></a></p>
+<p>程序员为了开发快速常常会写类似这样的一段代码。让用户输入数字，switch根据数字再去选择对应的功能。</p>
+<p>我们可以用FORM来美化这段代码。FORM的设计思想是“改变用户输入方式”。因此FORM仅仅只负责用户输入和返回用户选择的值，不关心程序对FORM返回的数据的处理。</p>
+<p>所以我们要把原来的输入方式cin替换掉。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803171003779.png" data-fancybox="group" data-caption="image-20200803171003779" class="fancybox"><img alt="image-20200803171003779" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803171003779.png" class="lazyload" title="image-20200803171003779"></a></p>
+<p>FORM声明一个叫做MainMenu的对象。可见初始参数有六个，均为整型。Inx1，Iny1为显示选单的左上角坐标；同理，Inx2，Iny2为右下角坐标。InoptionX和InoptionY是指生成几乘几的选单。例如1，2就代表1列2行的选单。</p>
+<p>我们的《测试枪战》共有3个选项，我们先选择1x3的排列方式。</p>
+<p><code>FORM MainMenu(10, 4, 30, 15, 1, 3);//两点的坐标只是大概估计，具体数值要经过测试。</code></p>
+<p><em>(注坐标原点为左上角，(0,0）点不显示在屏幕，所以坐标中不存在0，左上角第一个字符坐标为(1,1) )</em></p>
+<p>我们声明好了一个选单，但是我们还看不到它。可以使用DRAW函数来把这个选单绘制出来。</p>
+<p><code>MainMenu.DRAW(H_Blue,H_Red,H_Green);</code>//绘制选单需要提供三个颜色参数，分别是边框颜色，选项边框颜色，选项文字颜色</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803172339566.png" data-fancybox="group" data-caption="image-20200803172339566" class="fancybox"><img alt="image-20200803172339566" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803172339566.png" class="lazyload" title="image-20200803172339566"></a></p>
+<p>运行效果如图。此时的选单没有任何内容，但是我们已经看到生成效果不错。</p>
+<p>接下来使用SETOPTIONNAME函数给选项设定名字。</p>
+<p><code>MainMenu.SETOPTIONNAME(0,&quot;开始游戏&quot;);//把0号选项的名字设定为 “开始游戏”</code></p>
+<p>选项编号按从左到右，从上到下的顺序从0开始计数。所以三个选项的编号分别为0，1，2。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803203429405.png" data-fancybox="group" data-caption="image-20200803203429405" class="fancybox"><img alt="image-20200803203429405" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803203429405.png" class="lazyload" title="image-20200803203429405"></a></p>
+<p>设定好三个选项。运行看看效果。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803203508361.png" data-fancybox="group" data-caption="image-20200803203508361" class="fancybox"><img alt="image-20200803203508361" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803203508361.png" class="lazyload" title="image-20200803203508361"></a></p>
+<p>（这个红绿也太丑了）</p>
+<p>现在标题，边框，选项框我们都还没有自定义。</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand code-closed" aria-hidden="true"></i><div class="code_lang">c++</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">MainMenu.FormStr = <span class="string">"*"</span>;<span class="comment">//边框字符改为‘*’</span></span><br><span class="line">MainMenu.OptionStr = <span class="string">"."</span>;<span class="comment">//选项边框字符改为‘.’</span></span><br><span class="line">MainMenu.title = <span class="string">"测试枪战"</span>;<span class="comment">//标题改为”测试枪战“</span></span><br><span class="line">MainMenu.TitleColor = H_Yellow;<span class="comment">//标题颜色改为亮黄色</span></span><br></pre></td></tr></table></figure></div>
+
+<p>运行看一下</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803204402831.png" data-fancybox="group" data-caption="image-20200803204402831" class="fancybox"><img alt="image-20200803204402831" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803204402831.png" class="lazyload" title="image-20200803204402831"></a></p>
+<p>想让字居中？通过在选项名前加空格就可以解决。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803204633021.png" data-fancybox="group" data-caption="image-20200803204633021" class="fancybox"><img alt="image-20200803204633021" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803204633021.png" class="lazyload" title="image-20200803204633021"></a></p>
+<p>不想要边框？或者想自己绘制更复杂的边框？</p>
+<p>把border参数改为false即可。</p>
+<p><code>MainMenu.border = false;</code></p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205206469.png" data-fancybox="group" data-caption="image-20200803205206469" class="fancybox"><img alt="image-20200803205206469" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205206469.png" class="lazyload" title="image-20200803205206469"></a></p>
+<p>简洁。</p>
+<h2 id="使用选单"><a href="#使用选单" class="headerlink" title="使用选单"></a>使用选单</h2><p>我们现在使用的是DRAW函数绘制出选单，但我们是想让用户进行选择。所以我们要使用SELECTION函数来绘制选单并让用户选择。</p>
+<p><code>MainMenu.SELECTION(H_Blue, H_Red, H_Green);//和DRAW的所需参数一致，只不过会让用户选择。</code></p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205427181.png" data-fancybox="group" data-caption="image-20200803205427181" class="fancybox"><img alt="image-20200803205427181" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205427181.png" class="lazyload" title="image-20200803205427181"></a></p>
+<p>用户通过按ws上下移动选项，回车键确定选项并返回选项的值。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205737058.png" data-fancybox="group" data-caption="image-20200803205737058" class="fancybox"><img alt="image-20200803205737058" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205737058.png" class="lazyload" title="image-20200803205737058"></a></p>
+<p>经过SELECTION之后selection变量会得到用户选择选项的值，再根据值switch到对应位置。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205922246.png" data-fancybox="group" data-caption="image-20200803205922246" class="fancybox"><img alt="image-20200803205922246" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803205922246.png" class="lazyload" title="image-20200803205922246"></a></p>
+<p>当我们选择第2个选项的时候出现了1，这是因为选项的值默认与选项编号一致，因此第二个选项实际返回的是1。对应的把case标签修改一下或者给返回值加1再或者使用SETVALUE修改选项返回值也是可以的。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803211135827.png" data-fancybox="group" data-caption="image-20200803211135827" class="fancybox"><img alt="image-20200803211135827" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803211135827.png" class="lazyload" title="image-20200803211135827"></a></p>
+<p>对应起来即可。</p>
+<p>所以使用FORM只不过是改变了selection的输入方式，从cin输入改为了选项选择。</p>
+<h2 id="特殊返回值"><a href="#特殊返回值" class="headerlink" title="特殊返回值"></a>特殊返回值</h2><p>为了满足更多需要，有两个特殊的按键【ESC】和【TAB】。分别对应返回值-1和返回值-2。推荐的实践是把-1作为退出按键，使用户离开选择菜单不做出选择。-2作为切换键，在多个选单，信息栏或输入框之间切换。（信息栏，输入框会在以后说到）</p>
+<p>开发者要记得为这两个特殊返回值做出回应。</p>
+<p>本例中的主菜单不允许关闭，于是可以套一个循环</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803214717592.png" data-fancybox="group" data-caption="image-20200803214717592" class="fancybox"><img alt="image-20200803214717592" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/1/image-20200803214717592.png" class="lazyload" title="image-20200803214717592"></a></p>
+<p>像这样就可以实现必须选择，且按【TAB】键无用。</p>
+<h1 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h1><p>使用FORM去生成一个选择菜单是非常简单的，并且它的用途很广并不只是可以用于做选择菜单。人物的背包，卡牌或道具的选择都可以使用它。甚至可以用它来做井字棋。需要的是想象。</p>
+]]></content>
+      <tags>
+        <tag>命令行</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CTFLand</title>
     <url>/2020/07/29/CTFLand/</url>
     <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
@@ -37,7 +103,7 @@
 
 <p>payload里需要执行一次ret来使栈对齐。第一个payload会有时会失效，大概每执行3次exp就有一次泄漏失败。原因未知，可能与服务器环境有关。</p>
 <h1 id="OGeek2019-babyrop"><a href="#OGeek2019-babyrop" class="headerlink" title="[OGeek2019]babyrop"></a>[OGeek2019]babyrop</h1><p><em>*普通的ret2libc，中间有一个小的绕过姿势。</em></p>
-<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/BuuCTF1/%5BOGeek2019%5Dbabyrop%E6%88%AA%E5%B1%8F2020-07-18%20%E4%B8%8B%E5%8D%885.13.55.png" data-fancybox="group" data-caption="main" class="fancybox"><img alt="main" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/BuuCTF1/%5BOGeek2019%5Dbabyrop%E6%88%AA%E5%B1%8F2020-07-18%20%E4%B8%8B%E5%8D%885.13.55.png" class="lazyload" title="main"></a></p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/BuuCTF1/%5BOGeek2019%5Dbabyrop/Main.png" data-fancybox="group" data-caption="main" class="fancybox"><img alt="main" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/BuuCTF1/%5BOGeek2019%5Dbabyrop/Main.png" class="lazyload" title="main"></a></p>
 <p>在主函数使用urandom生成了一个随机数，接着调用了HanShu1。</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/BuuCTF1/%5BOGeek2019%5Dbabyrop/HanShu1.png" data-fancybox="group" data-caption="HanShu1" class="fancybox"><img alt="HanShu1" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/BuuCTF1/%5BOGeek2019%5Dbabyrop/HanShu1.png" class="lazyload" title="HanShu1"></a></p>
 <p>Line 11把a1格式化后放入了s，bufa是我们输入的字符串，在Line 15两者不相等则直接退出。比较的长度v1是可控的，strlen遇到\x00会截断，所以payload开头放个\x00就可以使比对长度为0，这样就能绕过对比。</p>
@@ -329,13 +395,14 @@
   <entry>
     <title>在MacOS 10.15 上配置基本的Pwn环境</title>
     <url>/2020/04/22/MacOSPwn/</url>
-    <content><![CDATA[<p><em>Catalina给我造成了相当多的麻烦，于是便记录一下过程</em></p>
+    <content><![CDATA[<p><em>Mac Pwn实在是不够香，还是虚拟机好用！</em></p>
+<p><em>Catalina给我造成了相当多的麻烦，于是便记录一下过程</em></p>
 <h1 id="安装Pwntools"><a href="#安装Pwntools" class="headerlink" title="安装Pwntools"></a>安装Pwntools</h1><p>首先，<strong>不要使用pip！</strong></p>
 <p>网上安装pwntools的教程中最多的就是pip安装，官网上的安装介绍也是pip安装。但是我们使用MacOS的homebrew来安装。</p>
 <p>如果你没有安装homebrew，执行下面的自动脚本</p>
 <p><code>/bin/zsh -c &quot;$(curl -fsSL https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh)&quot;</code></p>
 <p>直接在终端输入回车根据提示执行即可。</p>
-<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%884.15.59.png" data-fancybox="group" data-caption="homebrew" class="fancybox"><img alt="homebrew" title="homebrew" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%884.15.59.png" class="lazyload"></a></p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%884.15.59.png" data-fancybox="group" data-caption="homebrew" class="fancybox"><img alt="homebrew" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%884.15.59.png" class="lazyload" title="homebrew"></a></p>
 <p>homebrew就安装好了。</p>
 <p>执行<code>brew install pwntools</code> 安装pwntools</p>
 <p>再执行<code>brew install https://raw.githubusercontent.com/Gallopsled/pwntools-binutils/master/osx/binutils-amd64.rb</code>  安装二进制工具binutils</p>
@@ -349,9 +416,9 @@
 <div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand code-closed" aria-hidden="true"></i><div class="code_lang">Code</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;usr&#x2F;local&#x2F;Cellar&#x2F;pwntools&#x2F;4.0.1_1&#x2F;libexec&#x2F;lib&#x2F;python3.8&#x2F;site-packages</span><br></pre></td></tr></table></figure></div>
 
 <p><em>这一行需要自己看情况写，pwntools版本和python版本可能会不同</em></p>
-<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%888.45.40.png" data-fancybox="group" data-caption="path" class="fancybox"><img alt="path" title="path" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%888.45.40.png" class="lazyload"></a>然后就可以测试基本功能了。</p>
-<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%884.54.32.png" data-fancybox="group" data-caption="checksec" class="fancybox"><img alt="checksec" title="checksec" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%884.54.32.png" class="lazyload"></a></p>
-<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%888.53.28.png" data-fancybox="group" data-caption="pwntools" class="fancybox"><img alt="pwntools" title="pwntools" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%888.53.28.png" class="lazyload"></a></p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%888.45.40.png" data-fancybox="group" data-caption="path" class="fancybox"><img alt="path" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%888.45.40.png" class="lazyload" title="path"></a>然后就可以测试基本功能了。</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%884.54.32.png" data-fancybox="group" data-caption="checksec" class="fancybox"><img alt="checksec" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%884.54.32.png" class="lazyload" title="checksec"></a></p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%888.53.28.png" data-fancybox="group" data-caption="pwntools" class="fancybox"><img alt="pwntools" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MacOSPwn/%E6%88%AA%E5%B1%8F2020-04-22%20%E4%B8%8B%E5%8D%888.53.28.png" class="lazyload" title="pwntools"></a></p>
 <p>测试都OK</p>
 <h1 id="IDA"><a href="#IDA" class="headerlink" title="IDA"></a>IDA</h1><p>ida在Major版本上很好安装，但是网上现有的所有的安装包都无法在Catalina上安装。解决办法大致是 安装Major虚拟机，再安装旧版ida，打补丁拷贝目录到Catalina。实际操作起来有很多问题且很麻烦，于是我直接打包好了Catalina可用的dmg。</p>
 <p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/source/Ida%20for%20MacOS10.15.dmg" target="_blank" rel="noopener">Ida for Catalina</a></p>
