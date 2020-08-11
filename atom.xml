@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://cdn.n0p3.cn/"/>
-  <updated>2020-08-03T15:53:54.183Z</updated>
+  <updated>2020-08-08T14:21:10.416Z</updated>
   <id>https://cdn.n0p3.cn/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>【来做命令行游戏吧-2】：一个主角</title>
+    <link href="https://cdn.n0p3.cn/2020/08/07/MakeAGunGame2/"/>
+    <id>https://cdn.n0p3.cn/2020/08/07/MakeAGunGame2/</id>
+    <published>2020-08-07T06:38:31.000Z</published>
+    <updated>2020-08-08T14:21:10.416Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安装InfantGameEngine"><a href="#安装InfantGameEngine" class="headerlink" title="安装InfantGameEngine"></a>安装InfantGameEngine</h1><p>安装方法同XzyGraphics。</p><h1 id="一个主角"><a href="#一个主角" class="headerlink" title="一个主角"></a>一个主角</h1><h2 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h2><p>众所周知，命令行终端只是一个进行标准输入输出的应用，我们的程序运行中的输出都不会被记录。因此没有api可以让我们从命令行的输出获取字符，颜色。</p><p>无从获取我们就要自己记录输出。使用CreateEntity生成的字符称为实体。<strong>实体是一种被记录的，具有属性的，可以被其他实体“看见”的特殊字符。</strong> 实体本身是没有区别的，是根据开发者赋予的属性不同而具有不同作用的。</p><h2 id="创建场景"><a href="#创建场景" class="headerlink" title="创建场景"></a>创建场景</h2><p>我们的实体是要存在于某一个场景中的。所以我们首先要先创建一个场景。</p><p><code>SCENERY PlayGround(2, 2);//两个参数是场景的左上角坐标</code></p><p>场景由两个部分组成，活动区和缓冲区。在活动区的外围就是一圈缓冲区。实体只能在活动区运动不能通过移动进入缓冲区，这样缓冲区就可以用来暂存实体了。</p><p>场景的左上角为（1，1），但是边缘区域是缓冲区，因此为了游戏场景紧邻左上角，生成场景的坐标选在了（2，2）。<em>（你可以根据显示需要让场景显示在中间或是右侧）</em></p><p>现在我们还看不到场景，使用DRAW函数可以填充缓冲区。</p><p><code>PlayGround.DRAW(H_Gray, &#39;H&#39;);//用高亮灰H填充缓冲区</code></p><p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-07%20%E4%B8%8B%E5%8D%886.27.47.png" data-fancybox="group" data-caption="截屏2020-08-07 下午6.27.47" class="fancybox"><img alt="截屏2020-08-07 下午6.27.47" title="截屏2020-08-07 下午6.27.47" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-07%20%E4%B8%8B%E5%8D%886.27.47.png" class="lazyload"></a></p><p>我为开始游戏编写了单独的函数，这样的程序逻辑更清晰些。并在开始游戏中调用了DRAW。</p><p>现在让我们运行并选择开始游戏测试一下。<a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-07%20%E4%B8%8B%E5%8D%886.34.30.png" data-fancybox="group" data-caption="截屏2020-08-07 下午6.34.30" class="fancybox"><img alt="截屏2020-08-07 下午6.34.30" title="截屏2020-08-07 下午6.34.30" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-07%20%E4%B8%8B%E5%8D%886.34.30.png" class="lazyload"></a></p><p>看到了缓冲区H，在内部的就是活动区。同时也发现了我们忘记刷新屏幕就绘制了场景，导致主菜单还留在屏幕上。在调用前执行一次system(“Cls”)即可。</p><h2 id="创建实体"><a href="#创建实体" class="headerlink" title="创建实体"></a>创建实体</h2><p>有了场景，现在我们可以在场景中新建实体了。使用CreateEntity就可以创建实体了。</p><p><code>Player = PlayGround.CreateEntity(1, 1, H_Yellow, &#39;+&#39;, on);</code></p><p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-07%20%E4%B8%8B%E5%8D%887.57.41.png" data-fancybox="group" data-caption="截屏2020-08-07 下午7.57.41" class="fancybox"><img alt="截屏2020-08-07 下午7.57.41" title="截屏2020-08-07 下午7.57.41" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-07%20%E4%B8%8B%E5%8D%887.57.41.png" class="lazyload"></a></p><p>这行代码在PlayGround里创建了一个实体，坐标在（1，1），颜色为高亮黄，字符为‘+’，开启<strong>碰撞</strong>。（稍后会提到什么是碰撞）执行后会返回实体的编号，这个编号从1开始计数。把它保存下来是方便之后使用。</p><p>我们来运行程序。<a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-07%20%E4%B8%8B%E5%8D%888.00.03.png" data-fancybox="group" data-caption="截屏2020-08-07 下午8.00.03" class="fancybox"><img alt="截屏2020-08-07 下午8.00.03" title="截屏2020-08-07 下午8.00.03" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-07%20%E4%B8%8B%E5%8D%888.00.03.png" class="lazyload"></a></p><p>在活动区的左上角出现了一个‘+’。</p><h2 id="动起来"><a href="#动起来" class="headerlink" title="动起来"></a>动起来</h2><p>是时候让我们可以控制这个实体了。使用GetButton函数可以获取用户按键，这个函数是非阻碍型的，如果运行到这行时并没有按键按下将返回NULL。</p><p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-08%20%E4%B8%8B%E5%8D%887.21.41.png" data-fancybox="group" data-caption="截屏2020-08-08 下午7.21.41" class="fancybox"><img alt="截屏2020-08-08 下午7.21.41" title="截屏2020-08-08 下午7.21.41" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-08%20%E4%B8%8B%E5%8D%887.21.41.png" class="lazyload"></a></p><p>while循环是为了让检测按键的行为持续存在，也就是让这个世界存在‘时间’。这个时间的最小单位就是每一次循环，称为<strong>帧</strong>。每帧获取一次按键输入，接着跟上switch对不同的按键执行不同的操作。</p><p>现在我们可以知道用户按下了什么键，那么对应的要执行移动操作。实体移动使用En_Move函数就可以实现。</p><p><code>PlayGround.En_Move(Player, _up, 1);</code></p><p>这段代码就表示让实体Player向上移动1个字符。Player是我们先前创造的实体的id。这个参数也可以是实体的地址。</p><p><em>（更推荐使用指针方式编写代码，这样程序的运行效率会快很多。但对于每帧不怎么复杂的程序来说并不明显）</em></p><p>写完四个方向的移动如下</p><p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-08%20%E4%B8%8B%E5%8D%889.55.03.png" data-fancybox="group" data-caption="截屏2020-08-08 下午9.55.03" class="fancybox"><img alt="截屏2020-08-08 下午9.55.03" title="截屏2020-08-08 下午9.55.03" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/%E6%88%AA%E5%B1%8F2020-08-08%20%E4%B8%8B%E5%8D%889.55.03.png" class="lazyload"></a></p><p>运行效果</p><p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/move.gif" data-fancybox="group" data-caption="move" class="fancybox"><img alt="move" title="move" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/MakeAGunGame/2/move.gif" class="lazyload"></a></p><p>效果不错，对吧？</p><p>这样我们可移动的主角就做好了。</p>]]></content>
+    
+    <summary type="html">
+    
+      本文内容：熟悉基本的游戏设计概念，制作一个可移动的角色。
+    
+    </summary>
+    
+    
+    
+      <category term="命令行" scheme="https://cdn.n0p3.cn/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
+    
+  </entry>
   
   <entry>
     <title>【来做命令行游戏吧-1】：一个图形选择菜单</title>
