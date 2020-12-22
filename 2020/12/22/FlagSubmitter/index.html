@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5"><title>FlagSubmitter | N0P3</title><meta name="description" content="FlagSubmitter"><meta name="keywords" content="tool"><meta name="author" content="N0P3"><meta name="copyright" content="N0P3"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="preconnect" href="//cdn.jsdelivr.net"><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="preconnect" href="//busuanzi.ibruce.info"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="FlagSubmitter"><meta name="twitter:description" content="FlagSubmitter"><meta name="twitter:image" content="https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg"><meta property="og:type" content="article"><meta property="og:title" content="FlagSubmitter"><meta property="og:url" content="https://cdn.n0p3.cn/2020/12/22/FlagSubmitter/"><meta property="og:site_name" content="N0P3"><meta property="og:description" content="FlagSubmitter"><meta property="og:image" content="https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><script src="https://cdn.jsdelivr.net/npm/js-cookie/dist/js.cookie.min.js"></script><script>const autoChangeMode = 'true'
+var t = Cookies.get("theme");
+if (autoChangeMode == '1'){
+const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
+const isLightMode = window.matchMedia("(prefers-color-scheme: light)").matches
+const isNotSpecified = window.matchMedia("(prefers-color-scheme: no-preference)").matches
+const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+if (t === undefined){
+  if (isLightMode) activateLightMode()
+  else if (isDarkMode) activateDarkMode()
+  else if (isNotSpecified || hasNoSupport){
+    console.log('You specified no preference for a color scheme or your browser does not support it. I Schedule dark mode during night time.')
+    now = new Date();
+    hour = now.getHours();
+    isNight = hour < 6 || hour >= 18
+    isNight ? activateDarkMode() : activateLightMode()
+}
+} else if (t == 'light') activateLightMode()
+else activateDarkMode()
+
+
+} else if (autoChangeMode == '2'){
+  now = new Date();
+  hour = now.getHours();
+  isNight = hour < 6 || hour >= 18
+  if(t === undefined) isNight? activateDarkMode() : activateLightMode()
+  else if (t === 'light') activateLightMode()
+  else activateDarkMode() 
+} else {
+  if ( t == 'dark' ) activateDarkMode()
+  else if ( t == 'light') activateLightMode()
+}
+
+function activateDarkMode(){
+  document.documentElement.setAttribute('data-theme', 'dark')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+    document.querySelector('meta[name="theme-color"]').setAttribute('content','#000')
+  }
+}
+function activateLightMode(){
+  document.documentElement.setAttribute('data-theme', 'light')
+  if (document.querySelector('meta[name="theme-color"]') !== null){
+  document.querySelector('meta[name="theme-color"]').setAttribute('content','#fff')
+  }
+}</script><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><link rel="canonical" href="https://cdn.n0p3.cn/2020/12/22/FlagSubmitter/"><link rel="next" title="BuuWeb1" href="https://cdn.n0p3.cn/2020/10/28/BuuWeb1/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容:${query}"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://n0p3.top","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: 'Snackbar.bookmark.title',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天',
+  runtime: true,
+  copyright: {"languages":{"author":"作者: N0P3","link":"链接: https://cdn.n0p3.cn/2020/12/22/FlagSubmitter/","source":"来源: N0P3","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  ClickShowText: {"text":"N0P3,CAKE,FLAG,T0KI,MOMO,RICK,浅草","fontSize":"15px"},
+  medium_zoom: false,
+  fancybox: true,
+  Snackbar: undefined,
+  baiduPush: false,
+  isHome: false,
+  isPost: true
+  
+}</script><meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="N0P3" type="application/atom+xml">
+</head><body><header> <div id="page-header"><span class="pull_left" id="blog_name"><a class="blog_title" id="site-name" href="/">N0P3</a></span><span class="toggle-menu pull_right close"><a class="site-page"><i class="fa fa-bars fa-fw" aria-hidden="true"></i></a></span><span class="pull_right menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div></div></span><span class="pull_right" id="search_button"><a class="site-page social-icon search"><i class="fa fa-search fa-fw"></i><span> 搜索</span></a></span></div></header><div id="mobile-sidebar"><div id="menu_mask"></div><div id="mobile-sidebar-menus"><div class="mobile_author_icon"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"></div><div class="mobile_post_data"><div class="mobile_data_item is-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">21</div></a></div></div><div class="mobile_data_item is-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">18</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div></div></div><div id="mobile-sidebar-toc"><div class="toc_mobile_headline">目录</div><div class="sidebar-toc__content"><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-1"><a class="toc_mobile_items-link" href="#FlagSubmitter"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">FlagSubmitter</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#关于"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">关于</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#概述"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">概述</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#配置文件"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">配置文件</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#配置参数"><span class="toc_mobile_items-number">1.3.1.</span> <span class="toc_mobile_items-text">配置参数</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#系统函数"><span class="toc_mobile_items-number">1.3.2.</span> <span class="toc_mobile_items-text">系统函数</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#自定义变量"><span class="toc_mobile_items-number">1.3.3.</span> <span class="toc_mobile_items-text">自定义变量</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#自定义函数（未完善）"><span class="toc_mobile_items-number">1.3.4.</span> <span class="toc_mobile_items-text">自定义函数（未完善）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#系统变量"><span class="toc_mobile_items-number">1.3.5.</span> <span class="toc_mobile_items-text">系统变量</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#p3脚本"><span class="toc_mobile_items-number">1.3.6.</span> <span class="toc_mobile_items-text">p3脚本</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关于submitChecker函数"><span class="toc_mobile_items-number">1.3.7.</span> <span class="toc_mobile_items-text">关于submitChecker函数</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#目标列表"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">目标列表</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#a-b-攻击区间"><span class="toc_mobile_items-number">1.4.0.1.</span> <span class="toc_mobile_items-text">$[a-b]攻击区间</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#最后"><span class="toc_mobile_items-number">1.5.</span> <span class="toc_mobile_items-text">最后</span></a></li></ol></li></ol></div></div></div><div id="body-wrap"><div id="web_bg" data-type="color"></div><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true">     </i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FlagSubmitter"><span class="toc-number">1.</span> <span class="toc-text">FlagSubmitter</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#关于"><span class="toc-number">1.1.</span> <span class="toc-text">关于</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">1.2.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置文件"><span class="toc-number">1.3.</span> <span class="toc-text">配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置参数"><span class="toc-number">1.3.1.</span> <span class="toc-text">配置参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统函数"><span class="toc-number">1.3.2.</span> <span class="toc-text">系统函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义变量"><span class="toc-number">1.3.3.</span> <span class="toc-text">自定义变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自定义函数（未完善）"><span class="toc-number">1.3.4.</span> <span class="toc-text">自定义函数（未完善）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统变量"><span class="toc-number">1.3.5.</span> <span class="toc-text">系统变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#p3脚本"><span class="toc-number">1.3.6.</span> <span class="toc-text">p3脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于submitChecker函数"><span class="toc-number">1.3.7.</span> <span class="toc-text">关于submitChecker函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目标列表"><span class="toc-number">1.4.</span> <span class="toc-text">目标列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#a-b-攻击区间"><span class="toc-number">1.4.0.1.</span> <span class="toc-text">$[a-b]攻击区间</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">1.5.</span> <span class="toc-text">最后</span></a></li></ol></li></ol></div></div></div><main id="content-outer"><div id="top-container" style="background-image: url(https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg)"><div id="post-info"><div id="post-title"><div class="posttitle">FlagSubmitter</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i> 发表于 2020-12-22<span class="post-meta__separator">|</span><i class="fa fa-history fa-fw" aria-hidden="true"></i> 更新于 2020-12-23</time><div class="post-meta-wordcount"><div class="post-meta-pv-cv"><span><i class="fa fa-eye post-meta__icon fa-fw" aria-hidden="true"> </i>阅读量:</span><span id="busuanzi_value_page_pv"></span><span class="post-meta__separator">|</span><i class="fa fa-comments-o post-meta__icon fa-fw" aria-hidden="true"></i><span>评论数:</span><a href="/2020/12/22/FlagSubmitter/#post-comment" itemprop="discussionUrl"><span class="valine-comment-count comment-count" data-xid="/2020/12/22/FlagSubmitter/" itemprop="commentCount"></span></a></div></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h1 id="FlagSubmitter"><a href="#FlagSubmitter" class="headerlink" title="FlagSubmitter"></a>FlagSubmitter</h1><h2 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h2><p>FlagSubmitter是在AWD攻防模式中帮你每轮获取并提交flag的命令行工具。</p>
+<p>因此，<strong>它不能帮你解题。</strong></p>
+<p>对于多数ctf来说为一道题目编写exp打全场并不难。只是对于像我这种赛场上容易手忙脚乱的选手来说能有一个<strong>简单可靠</strong>的工具帮助我处理攻击后的后勤工作是很有意义的。</p>
+<p>因此它必须设计的简单易用，否则它就和拿exp模板改出来的脚本没有两样。</p>
+<p><del>它还可以为一些菜鸡ctfer（我）提供摸鱼的机会</del></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>FlagSubmitter（以下简称FS）通常由主程序，<strong>配置文件</strong>（config）和<strong>目标列表</strong>（shellList）组成。程序会载入<strong>配置文件</strong>并每轮攻击<strong>目标列表</strong>中的目标获得flag提交到<strong>配置文件</strong>所指定的提交链接。</p>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><p>config文件是设定本次比赛参数的文件。</p>
+<p>大概长这个样子：</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/FlagSubmitter/%E6%88%AA%E5%B1%8F2020-12-22%20%E4%B8%8B%E5%8D%889.03.21.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="截屏2020-12-22 下午9.03.21" class="fancybox"><img alt="截屏2020-12-22 下午9.03.21" title="截屏2020-12-22 下午9.03.21" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/FlagSubmitter/%E6%88%AA%E5%B1%8F2020-12-22%20%E4%B8%8B%E5%8D%889.03.21.png" class="lazyload"></a></p>
+<p>格式形似xml，标签内则是变量的值。</p>
+<h3 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h3><p><em>上图除了hello变量外都是系统配置所需参数。</em></p>
+<ul>
+<li>DEBUG：on会启动debug模式。如果获取flag或者提交失败则可以打开debug模式。</li>
+<li>submitURL：提交flag的地址。通常平台会提供或者自己抓包。</li>
+<li>method：向flag提交地址提交flag的方法。有get, post,json三种。</li>
+<li>timeout：超时。单位秒，所有的访问超过此时间都将视为超时。</li>
+<li>startTime：比赛开始时间。世界标准时间格式（yyyy-MM-dd’T’HH:mm:ss）</li>
+<li>turnTime：每回合时间。单位秒。</li>
+<li>endTime：比赛结束时间。世界标准时间格式（yyyy-MM-dd’T’HH:mm:ss）</li>
+<li>submitDelay：提交延时。单位秒，每回合开始多久后开始攻击并提交。</li>
+<li>params：提交flag时按get方式发送的数据。格式‘变量名=值’，多个参数间用逗号隔开。例如 ：key1=value1,key2=value2</li>
+<li>header：提交flag时的请求头。格式‘变量名=值’，多个间用逗号隔开。</li>
+<li>data：提交flag时按post格式发送的数据。格式‘变量名=值’，多个参数间用逗号隔开。⚠️如果提交方式为json将会把此处的参数打包为json格式发送。</li>
+<li>flagFormat：比赛的flag格式。例如：flag{} N0P3CTF{}</li>
+<li>shellList：攻击目标列表文件名。下一小节详细说明。</li>
+</ul>
+<h3 id="系统函数"><a href="#系统函数" class="headerlink" title="系统函数"></a>系统函数</h3><ul>
+<li>submitChecker：提交检查。每场比赛判断提交是否成功的部分都不相同。可以在这里编写一段<strong>p3脚本</strong>（后面会详细说明）格式的代码来实现准确的提交计数。</li>
+</ul>
+<h3 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h3><p>&lt;CONFIGVARs&gt;标签内可以声明更多自定义的变量。每个变量名间用逗号隔开。</p>
+<p><em>在上面的示例图片中声明了一个hello变量，其值在下面对应的hello标签中。</em></p>
+<p>自定义变量可被其他系统变量访问，例如</p>
+<div class="code-area-wrap"><div class="highlight-tools"><i class="fa fa-angle-down code-expand code-closed" aria-hidden="true"></i><div class="code_lang">xml</div><div class="copy-notice"></div><i class="fa fa-clipboard" aria-hidden="true"></i></div><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">CONFIGVARs</span>&gt;</span></span><br><span class="line">myTestVar</span><br><span class="line"><span class="tag">&lt;/<span class="name">CONFIGVARs</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">myTestVar</span>&gt;</span>hi!<span class="tag">&lt;/<span class="name">myTestVar</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">params</span>&gt;</span>a=myTestVar<span class="tag">&lt;/<span class="name">params</span>&gt;</span></span><br></pre></td></tr></table></figure></div>
+
+<p>提交时url里将会出现?a=hi! 。</p>
+<p>⚠️如果没有定义myTestVar提交时url里将出现?a=myTestVar。</p>
+<p>自定义变量也可以被其他函数访问，例如示例图片中就在每次submitChecker前输出了用户自定义的hello变量。</p>
+<h3 id="自定义函数（未完善）"><a href="#自定义函数（未完善）" class="headerlink" title="自定义函数（未完善）"></a>自定义函数（未完善）</h3><p>像自定义变量一样，&lt;FUNCTIONs&gt;标签里可以定义更多函数。</p>
+<p>不同的是如果你像示例图片中那样定义一个.p3结尾的函数，程序将会在当前目录下寻找同名的.p3文件并载入。<em>（由于插件部分还没有完成目前并没有方式调用载入的函数。）</em></p>
+<h3 id="系统变量"><a href="#系统变量" class="headerlink" title="系统变量"></a>系统变量</h3><p>在FS中有一些特殊的系统变量。</p>
+<ul>
+<li>$(FLAG)：在flag提交过程中该系统变量会储存flag的值。</li>
+<li>$(RETSUBMIT)：每次提交后该变量会记录此次提交的返回对象。</li>
+<li>$(LASTRET)：p3脚本执行结束时该变量的值将会作为p3代码的返回值。</li>
+</ul>
+<p>⚠️随着程序的更新，开放的系统变量将会更多。</p>
+<h3 id="p3脚本"><a href="#p3脚本" class="headerlink" title="p3脚本"></a>p3脚本</h3><p>这是一个很重要但还没准备好的东西。</p>
+<p>p3脚本就是在py脚本上做了一些手脚。例如可以访问系统变量，自定义变量和配置文件参数。</p>
+<p>你只需要按照python去编写代码即可。但是需要注意p3脚本的返回值需要储存在系统变量$(LASTRET)​中。</p>
+<h3 id="关于submitChecker函数"><a href="#关于submitChecker函数" class="headerlink" title="关于submitChecker函数"></a>关于submitChecker函数</h3><p>在示例图片中，submitChecker检查了提交的返回对象的status_code成员，即状态码。若为200则为$(LASTRET)赋真值。否则将提示提交失败并显示状态码。</p>
+<p>⚠️在编写这个函数时请保证返回值一定为bool值。返回真将视为提交成功。否则为提交失败。</p>
+<h2 id="目标列表"><a href="#目标列表" class="headerlink" title="目标列表"></a>目标列表</h2><p>目标列表文件长的像这样：</p>
+<p><a href="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/FlagSubmitter/%E6%88%AA%E5%B1%8F2020-12-23%20%E4%B8%8A%E5%8D%8812.29.48.png" target="_blank" rel="noopener" data-fancybox="group" data-caption="截屏2020-12-23 上午12.29.48" class="fancybox"><img alt="截屏2020-12-23 上午12.29.48" title="截屏2020-12-23 上午12.29.48" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/Blog/FlagSubmitter/%E6%88%AA%E5%B1%8F2020-12-23%20%E4%B8%8A%E5%8D%8812.29.48.png" class="lazyload"></a></p>
+<p>在target标签之间就是目标列表。格式如下：</p>
+<p><code>method|url|params|data|headers;</code></p>
+<p>每个目标链接访问后需要直接在页面上显示出flag。只需页面出现flag即可，程序会自动取出flag。当返回页面有多个flag时程序都会取出。</p>
+<p>⚠️配置文件中的flag格式要填写正确。</p>
+<p>例如：访问链接<a href="http://10.x.x.x:8081/shell.php?a=123&amp;b=456页面会出现flag，则这样填写目标列表：" target="_blank" rel="noopener">http://10.x.x.x:8081/shell.php?a=123&amp;b=456页面会出现flag，则这样填写目标列表：</a></p>
+<p>get|<a href="http://http://10.x.x.x:8081/shell.php|a=123,b=456" target="_blank" rel="noopener">http://http://10.x.x.x:8081/shell.php|a=123,b=456</a>;</p>
+<ul>
+<li>每个目标间用分号隔开。</li>
+<li>如果需要使用分号请加转义符\，例如示例图片中的system(…)\;。</li>
+<li>params，data，headers的参数间用逗号隔开。</li>
+<li>当方法是get时，post参数区的值会被忽略。</li>
+<li>当方法是post时，即使get不需要传参也要留空。</li>
+<li>当方法是json时，post参数区的值会被打包为json格式发送。</li>
+</ul>
+<p>⚠️不使用的数据区可以省略，但如果用到了后面的数据区则前面的需要留空。例如示例图片第二个目标。</p>
+<h4 id="a-b-攻击区间"><a href="#a-b-攻击区间" class="headerlink" title="$[a-b]攻击区间"></a>$[a-b]攻击区间</h4><p>示例图片的第三个目标的端口处出现了区间$[a-b],这样的书写将会在攻击时批量攻击114.x.x.x:1到114.x.x.x:50间的所有目标。</p>
+<p>同理114.x.x.$[2-200]:80将攻击114.x.x.2:80到114.x.x.200:80间的所有目标。</p>
+<p>⚠️每个目标只有第一个攻击区间会被展开。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>如果你发现了什么bug或者有任何疑问或建议都可以写在评论区～</p>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">N0P3</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://cdn.n0p3.cn/2020/12/22/FlagSubmitter/">https://cdn.n0p3.cn/2020/12/22/FlagSubmitter/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://cdn.n0p3.cn">N0P3</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/tool/">tool    </a></div><div class="post_share"><div class="social-share" data-image="https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-button button--primary button--animated"> <i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/wechat.png" alt="微信"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lazyload post-qr-code__img" src="/img/alipay.png" alt="支付宝"><div class="post-qr-code__desc">支付宝</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="next-post pull-full"><a href="/2020/10/28/BuuWeb1/"><img class="next_cover lazyload" data-src="https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="label">下一篇</div><div class="next_info"><span>BuuWeb1</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'IHkoGoEe8ua2JOoXuv8W7vCC-gzGzoHsz',
+  appKey:'EBcjWhsfRX0zoi7Up1pzopdR',
+  placeholder:'来都来了，说两句再走呗～',
+  avatar:'monsterid',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'zh-cn',
+  recordIP: true
+});</script></div></div></main><footer id="footer" style="background-image: url(https://n0p3.oss-cn-beijing.aliyuncs.com/eduardo-cano-photo-co-c8OQqtJ54Q4-unsplash.jpg)" data-type="photo"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2020 By N0P3</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io" target="_blank" rel="noopener"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly" target="_blank" rel="noopener"><span>Butterfly</span></a></div><div class="icp"><a href="http://www.beian.miit.gov.cn/" target="_blank" rel="noopener"><img class="icp-icon" src="/img/icp.png"><span>豫ICP备20013173号</span></a></div></div></footer></div><section class="rightside" id="rightside"><div id="rightside-config-hide"><i class="fa fa-book" id="readmode" title="阅读模式"></i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换" target="_self">繁</a><i class="darkmode fa fa-moon-o" id="darkmode" title="夜间模式"></i></div><div id="rightside-config-show"><div id="rightside_config" title="设置"><i class="fa fa-cog" aria-hidden="true"></i></div><a id="to_comment" href="#post-comment" title="直达评论"><i class="scroll_to_comment fa fa-comments">  </i></a><i class="fa fa-list-ul close" id="mobile-toc-button" title="目录" aria-hidden="true"></i><i class="fa fa-arrow-up" id="go-up" title="回到顶部" aria-hidden="true"></i></div></section><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script id="ribbon_piao" mobile="false" src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/piao.js"></script><script src="https://cdn.jsdelivr.net/npm/activate-power-mode/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = false; 
+document.body.addEventListener('input', POWERMODE);
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@latest/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@latest/lazysizes.min.js" async=""></script><script src="https://cdn.jsdelivr.net/gh/jerryc127/butterfly_cdn@2.1.0/js/ClickShowText.js"></script><div class="search-dialog" id="local-search"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章"></div></div></div><hr><div id="local-search-results"><div id="local-hits"></div><div id="local-stats"><div class="local-search-stats__hr" id="hr"><span>由</span> <a href="https://github.com/wzpan/hexo-generator-search" target="_blank" rel="noopener" style="color:#49B1F5;">hexo-generator-search</a>
+ <span>提供支持</span></div></div></div><span class="search-close-button"><i class="fa fa-times"></i></span></div><div class="search-mask"></div></body></html>
