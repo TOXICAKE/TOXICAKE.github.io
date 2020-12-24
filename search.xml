@@ -74,6 +74,10 @@
 <h4 id="a-b-攻击区间"><a href="#a-b-攻击区间" class="headerlink" title="$[a-b]攻击区间"></a>$[a-b]攻击区间</h4><p>示例图片的第三个目标的端口处出现了区间$[a-b],这样的书写将会在攻击时批量攻击114.x.x.x:1到114.x.x.x:50间的所有目标。</p>
 <p>同理114.x.x.$[2-200]:80将攻击114.x.x.2:80到114.x.x.200:80间的所有目标。</p>
 <p>⚠️每个目标只有第一个攻击区间会被展开。</p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>载入配置文件</p>
+<p><code>./FlagSubmitter --config [配置文件名]</code></p>
+<p>开始运行FS</p>
+<p><code>./FlagSubmitter --config [配置文件名] --action</code></p>
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>如果你发现了什么bug或者有任何疑问或建议都可以写在评论区～</p>
 ]]></content>
       <tags>
